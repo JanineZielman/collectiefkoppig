@@ -1,0 +1,16 @@
+.loader {
+  display: inline-block;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.blobs {
+  filter: url("#goo") drop-shadow(black 0 0 20px );
+}
+
+.blob {
+  fill: white;
+}

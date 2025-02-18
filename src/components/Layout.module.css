@@ -1,0 +1,47 @@
+.menu img{
+  position: fixed;
+  top: 30px;
+  right: 2.5vw;
+  margin-top: 0;
+  z-index: 9;
+  width: 40px;
+  transform: rotate(0deg);
+  transition: all 0.4s ease;
+}
+
+.menu.open img{
+  transform: rotate(-90deg);
+}
+
+.logo img{
+  height: 8vh;
+  display: block;
+  margin: auto;
+  padding-top: 24px;
+}
+
+.frame a{
+  display: block;
+  text-decoration: none;
+  color: black;
+  font-family: Koppig1-Regular;
+  font-size: 30px;
+  margin-top: 14px;
+}
+
+.frame {
+  transition: all 0.3s ease-in-out;
+  position: fixed;
+  top: 14px;
+  right: -225px;
+  max-width: 175px;
+  background-image: url(/SVG/frame.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding: 48px 24px;
+  z-index: 8;
+}
+
+.frame.open {
+  right: 1vw;
+}
