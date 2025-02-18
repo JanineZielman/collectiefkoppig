@@ -45,6 +45,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const navigation = await client.getByType("navigation");
 
   return (
+    <div className="project-page">
     <Layout navigation={navigation.results[0].data}>
       <h1 className="page-title">{page.data.title}</h1>
       <div className="image-text">    
@@ -59,6 +60,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       </div>
       <SliceZone slices={page.data.slices} components={components} />
     </Layout>
+    </div>
   )
 }
 

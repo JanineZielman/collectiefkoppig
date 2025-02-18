@@ -4,7 +4,7 @@ import * as prismic from "@prismicio/client";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import Layout from "@/components/layout"
-import ZoomableSVG from "@/components/ZoomableSVG"
+import ZoomedSVGPage from "@/components/ZoomedSVGPage"
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
@@ -25,10 +25,11 @@ export default async function Index() {
   const client = createClient();
   const home = await client.getByUID("page", "home");
   const navigation = await client.getByType("navigation");
+  const projects = await client.getAllByType('project');
 
   return (
     <Layout navigation={navigation.results[0].data}>
-      <ZoomableSVG/>
+      <ZoomedSVGPage projects={projects}/>
       <SliceZone slices={home.data.slices} components={components} />
     </Layout>
   )
