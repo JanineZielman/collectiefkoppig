@@ -45,3 +45,11 @@
 .frame.open {
   right: 1vw;
 }
+
+@media only screen and (max-width: 600px) {
+  .logo img{
+    height: 45px;
+    margin-left: 2vw;
+    width: auto;
+  }
+}

@@ -157,3 +157,68 @@ img{
   color: black;
   text-decoration: none;
 }
+
+.projects-grid{
+  display: flex;
+  padding: 0 2vw;
+}
+
+.project-item{
+  width: 20vw;
+  position: relative;
+  margin: 2vw;
+}
+
+.project-item a{
+  text-decoration: none;
+  color: black;
+  font-family:'Koppig1-Regular';
+  font-size: 36px;
+  margin-top: 14px;
+  display: block;
+}
+
+.project-item .image{
+  position: relative;
+}
+
+.project-item .image:after{
+  content: "";
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  left: -5%;
+  top: -4%;
+  background-image: url(/frame.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+@media only screen and (max-width: 600px) {
+  .ant{
+    left: 5vw;
+  }
+  .page-title{
+    font-size: 48px;
+  }
+  .image-text{
+    flex-direction: column;
+  }
+  .image-text .text{
+    width: 100%;
+    margin-top: 24px;
+    padding-left: 0;
+  }
+  p{
+    font-size: 18px;
+  }
+  .projects-grid{
+    flex-direction: column;
+    margin-left: 10%;
+  }
+  .project-item{
+    width: 85%;
+    padding-bottom: 24px;
+  }
+}
