@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type AgendaItemDocumentDataSlicesSlice = never;
+type AgendaItemDocumentDataSlicesSlice = TextSlice | ImageSlice;
 
 /**
  * Content for Agenda Item documents
@@ -158,7 +158,7 @@ export type NavigationDocument<Lang extends string = string> =
     Lang
   >;
 
-type PageDocumentDataSlicesSlice = RichTextSlice;
+type PageDocumentDataSlicesSlice = never;
 
 /**
  * Content for Page documents
@@ -230,7 +230,7 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-type ProjectDocumentDataSlicesSlice = never;
+type ProjectDocumentDataSlicesSlice = TextSlice | ImageSlice;
 
 /**
  * Content for Project documents
@@ -335,49 +335,98 @@ export type AllDocumentTypes =
   | ProjectDocument;
 
 /**
- * Primary content in *RichText → Default → Primary*
+ * Primary content in *Image → Default → Primary*
  */
-export interface RichTextSliceDefaultPrimary {
+export interface ImageSliceDefaultPrimary {
   /**
-   * Content field in *RichText → Default → Primary*
+   * Image field in *Image → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Caption field in *Image → Default → Primary*
    *
    * - **Field Type**: Rich Text
-   * - **Placeholder**: Lorem ipsum...
-   * - **API ID Path**: rich_text.default.primary.content
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image.default.primary.caption
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
-  content: prismic.RichTextField;
+  caption: prismic.RichTextField;
 }
 
 /**
- * Default variation for RichText Slice
+ * Default variation for Image Slice
  *
  * - **API ID**: `default`
- * - **Description**: RichText
+ * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type RichTextSliceDefault = prismic.SharedSliceVariation<
+export type ImageSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Simplify<RichTextSliceDefaultPrimary>,
+  Simplify<ImageSliceDefaultPrimary>,
   never
 >;
 
 /**
- * Slice variation for *RichText*
+ * Slice variation for *Image*
  */
-type RichTextSliceVariation = RichTextSliceDefault;
+type ImageSliceVariation = ImageSliceDefault;
 
 /**
- * RichText Shared Slice
+ * Image Shared Slice
  *
- * - **API ID**: `rich_text`
- * - **Description**: RichText
+ * - **API ID**: `image`
+ * - **Description**: Image
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type RichTextSlice = prismic.SharedSlice<
-  "rich_text",
-  RichTextSliceVariation
+export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
+
+/**
+ * Primary content in *Text → Default → Primary*
+ */
+export interface TextSliceDefaultPrimary {
+  /**
+   * Text field in *Text → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Text Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TextSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TextSliceDefaultPrimary>,
+  never
 >;
+
+/**
+ * Slice variation for *Text*
+ */
+type TextSliceVariation = TextSliceDefault;
+
+/**
+ * Text Shared Slice
+ *
+ * - **API ID**: `text`
+ * - **Description**: Text
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TextSlice = prismic.SharedSlice<"text", TextSliceVariation>;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -412,10 +461,14 @@ declare module "@prismicio/client" {
       ProjectDocumentData,
       ProjectDocumentDataSlicesSlice,
       AllDocumentTypes,
-      RichTextSlice,
-      RichTextSliceDefaultPrimary,
-      RichTextSliceVariation,
-      RichTextSliceDefault,
+      ImageSlice,
+      ImageSliceDefaultPrimary,
+      ImageSliceVariation,
+      ImageSliceDefault,
+      TextSlice,
+      TextSliceDefaultPrimary,
+      TextSliceVariation,
+      TextSliceDefault,
     };
   }
 }
