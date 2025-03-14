@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type AgendaItemDocumentDataSlicesSlice = TextSlice | ImageSlice;
+type AgendaItemDocumentDataSlicesSlice = QuoteSlice | TextSlice | ImageSlice;
 
 /**
  * Content for Agenda Item documents
@@ -230,7 +230,7 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-type ProjectDocumentDataSlicesSlice = TextSlice | ImageSlice;
+type ProjectDocumentDataSlicesSlice = QuoteSlice | TextSlice | ImageSlice;
 
 /**
  * Content for Project documents
@@ -387,6 +387,48 @@ type ImageSliceVariation = ImageSliceDefault;
 export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
 
 /**
+ * Primary content in *Quote → Default → Primary*
+ */
+export interface QuoteSliceDefaultPrimary {
+  /**
+   * Quote field in *Quote → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: quote.default.primary.quote
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  quote: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Quote Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type QuoteSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<QuoteSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Quote*
+ */
+type QuoteSliceVariation = QuoteSliceDefault;
+
+/**
+ * Quote Shared Slice
+ *
+ * - **API ID**: `quote`
+ * - **Description**: Quote
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type QuoteSlice = prismic.SharedSlice<"quote", QuoteSliceVariation>;
+
+/**
  * Primary content in *Text → Default → Primary*
  */
 export interface TextSliceDefaultPrimary {
@@ -465,6 +507,10 @@ declare module "@prismicio/client" {
       ImageSliceDefaultPrimary,
       ImageSliceVariation,
       ImageSliceDefault,
+      QuoteSlice,
+      QuoteSliceDefaultPrimary,
+      QuoteSliceVariation,
+      QuoteSliceDefault,
       TextSlice,
       TextSliceDefaultPrimary,
       TextSliceVariation,
