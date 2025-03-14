@@ -5,6 +5,7 @@ import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import Layout from "@/components/layout"
 import ZoomableSVG from "@/components/ZoomableSVG"
+import Loader from "@/components/loader"
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
@@ -28,6 +29,7 @@ export default async function Index() {
 
   return (
     <Layout navigation={navigation.results[0].data}>
+      <Loader/>
       <ZoomableSVG/>
       <SliceZone slices={home.data.slices} components={components} />
     </Layout>

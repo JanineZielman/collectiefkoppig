@@ -4,6 +4,126 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type AgendaItemDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Agenda Item documents
+ */
+interface AgendaItemDocumentData {
+  /**
+   * Title field in *Agenda Item*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Date field in *Agenda Item*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  date: prismic.DateField;
+
+  /**
+   * End date field in *Agenda Item*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.end_date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  end_date: prismic.DateField;
+
+  /**
+   * Description field in *Agenda Item*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Info field in *Agenda Item*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.info
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  info: prismic.RichTextField;
+
+  /**
+   * Slice Zone field in *Agenda Item*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<AgendaItemDocumentDataSlicesSlice> /**
+   * Meta Title field in *Agenda Item*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: agenda_item.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Agenda Item*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: agenda_item.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Agenda Item*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Agenda Item document from Prismic
+ *
+ * - **API ID**: `agenda_item`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AgendaItemDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<AgendaItemDocumentData>,
+    "agenda_item",
+    Lang
+  >;
+
 /**
  * Content for Navigation documents
  */
@@ -209,6 +329,7 @@ export type ProjectDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | AgendaItemDocument
   | NavigationDocument
   | PageDocument
   | ProjectDocument;
@@ -279,6 +400,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AgendaItemDocument,
+      AgendaItemDocumentData,
+      AgendaItemDocumentDataSlicesSlice,
       NavigationDocument,
       NavigationDocumentData,
       PageDocument,
