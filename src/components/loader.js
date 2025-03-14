@@ -28,7 +28,7 @@ const Loader = () => {
       if (videoRef.current) {
         videoRef.current.pause();
       }
-    }, 4000);
+    }, 5400);
 
     return () => clearTimeout(hideTimeout);
   }, []);
@@ -44,7 +44,7 @@ const Loader = () => {
         }
         return prevIndex + 1;
       });
-    }, 300); // Change every 300ms
+    }, 400); // Change every 300ms
 
     return () => clearInterval(interval);
   }, [shuffledImages, isVisible]);
@@ -52,7 +52,7 @@ const Loader = () => {
   return (
     <div className={`${styles.loader} ${!isVisible ? styles.hidden : ''}`}>
       <video ref={videoRef} autoPlay playsInline muted loop>
-        <source src="/koppig-intro!.mp4" type="video/mp4" />
+        <source src="/koppig2.mp4" type="video/mp4" />
       </video>
       <div className={styles.mondjes} style={{ maskImage: `url(${shuffledImages[index]})` }}>
       </div>

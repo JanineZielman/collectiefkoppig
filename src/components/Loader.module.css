@@ -39,8 +39,8 @@
   z-index: 99;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   background-color: white;
   mask-size: contain;
   mask-repeat: no-repeat;
