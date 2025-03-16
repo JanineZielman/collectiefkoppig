@@ -1,5 +1,6 @@
 import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { PrismicNextImage } from "@prismicio/next";
+import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 
 /**
  * Props for `Image`.
@@ -15,7 +16,10 @@ const Image = ({ slice }: ImageProps): JSX.Element => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      Placeholder component for image (variation: {slice.variation}) Slices
+      <div className="image-wrapper">
+        <PrismicNextImage field={slice.primary.image} />
+      </div>
+      <PrismicRichText field={slice.primary.caption} />
     </section>
   );
 };

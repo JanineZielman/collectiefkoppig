@@ -29,7 +29,7 @@ export default async function Index() {
 
   return (
     <Layout navigation={navigation.results[0].data}>
-      <Loader/>
+      {/* <Loader/> */}
       <ZoomableSVG/>
       <SliceZone slices={home.data.slices} components={components} />
     </Layout>

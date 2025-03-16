@@ -1,34 +1,45 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 export default function ZoomableSVG() {
   const originalScale = 1;
-  const zoomedScale = 3; // Zoom factor (you can adjust this as needed)
-  
   const [scale, setScale] = useState(originalScale);
   const [zoomedText, setZoomedText] = useState(null);
   const [transformOrigin, setTransformOrigin] = useState("center center");
 
-  // Define zoom areas for each text/tspan (not directly used for scaling)
+  // Define zoom areas with relative positions (as a percentage of SVG width/height)
   const zoomAreas = {
-    "KUNST": { x: 100, y: -50 },
-    "VAK": { x: 350, y: 800 },
-    "APART": { x: 350, y: 800 },
-    "SAMEN-": { x: 1000, y: 250 },
-    "LEVING": { x: 1000, y: 250 }
+    "KUNST": { x: 20, y: 30 }, // 5% from left, 0% from top
+    "VAK": { x: 15, y: -35 },
+    "APART": { x: 15, y: -35 },
+    "SAMEN-": { x: -20, y: 0 },
+    "LEVING": { x: -20, y: 0 }
   };
+
+  useEffect(() => {
+    // Update the viewport dimensions on window resize
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
+      setViewportHeight(window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleClick = (event) => {
     const text = event.target.textContent?.trim(); // Get clicked element's text
     if (!text) return;
-  
-    // Get the coordinates for the clicked text (from zoomAreas)
+
+    // Get the relative coordinates for the clicked text (from zoomAreas)
     const coords = zoomAreas[text];
-  
+
     if (coords) {
       const { x, y } = coords;
-  
+
+      // Calculate the zoom areas as percentages (no need for pixel-based calculations)
+      const percentageX = x; // Already in percentage
+      const percentageY = y; // Already in percentage
+
       // Check if the clicked text is already zoomed
       if (zoomedText === text) {
         // Reset to original scale and origin if clicked again
@@ -38,9 +49,7 @@ export default function ZoomableSVG() {
         // Redirect to the home page or a default route
         window.location.href = '/';
       } else {
-          window.location.href = `/zoom?text=${text}&x=${x}&y=${y}`;
-
-        
+        window.location.href = `/zoom?text=${text}&x=${percentageX}&y=${percentageY}`;
       }
     }
   };
@@ -55,13 +64,13 @@ export default function ZoomableSVG() {
       height="100%"
       viewBox="0 0 2352.1 1785.3"
       style={{
-        transform: `scale(${scale})`, // Apply scaling for zoom effect
+        transform: `scale(${scale })`, // Apply scaling for zoom effect, considering dynamic scaling
         transformOrigin: transformOrigin,   // Dynamic zoom origin based on clicked text
         transition: "transform 0.5s ease-in-out", // Smooth transition for zoom
         transitionTimingFunction: "ease-in-out"
       }}
     >
-      <g id="Layer_1-2">
+         <g id="Layer_1-2">
         <path d="M2352.1,772.8c-2.7,4.5-2.6,9.3-3.2,14.4c-1.1,10.8-0.1,21.5-1.3,32.1c-1.6,14.2-3.7,28.5-7.8,42.1
           c-2.7,8.8-2.5,18.4-8.2,26.7c-4.7,6.9-7.7,15.5-9.6,23.8c-3.8,16.1-11.4,30.8-16.2,46.5c-1.8,5.9-4.1,11.7-6,17.6
           c-4.4,13.5-15.6,22.7-22.1,34.9c-1.9,3.7-5.4,6.5-8.1,9.8c-5,6.1-9.9,12.4-15,18.4c-5.6,6.5-11.4,12.7-17.2,19

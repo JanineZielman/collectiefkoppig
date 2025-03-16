@@ -11,6 +11,10 @@
   --pink: #FEADFF;
 }
 
+*{
+  box-sizing: border-box;
+}
+
 
 body {
   margin: 0;
@@ -79,7 +83,7 @@ body {
 }
 
 .image-text div{
-  width: 48%;
+  width: 50%;
 }
 
 .image-text .img{
@@ -109,9 +113,38 @@ body {
   z-index: 2;
 }
 
+
+.image-wrapper{
+  position: relative;
+  height: fit-content;
+  max-height: 60vh;
+  max-width: 900px;
+  width: fit-content;
+  margin: 48px auto;
+}
+
+.image-wrapper  img{
+  object-fit: cover;
+  width: 100%;
+  max-height: 60vh;
+}
+
+.image-wrapper:after{
+  content: "";
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  left: -5%;
+  top: -4%;
+  background-image: url(/frame.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
 .image-text .text{
   margin-top: 25vh;
-  padding-left: 5vw;
+  padding-left: 2vw;
 }
 
 img{
@@ -195,9 +228,22 @@ img{
   z-index: 2;
 }
 
+.text-section{
+  max-width: 900px;
+  margin: auto;
+  padding: 14px;
+}
+
+.quote{
+  font-size: 36px;
+  max-width: 900px;
+  margin: auto;
+  padding: 14px;
+}
+
 @media only screen and (max-width: 600px) {
   .ant{
-    left: 5vw;
+    left: 5%;
   }
   .page-title{
     font-size: 48px;

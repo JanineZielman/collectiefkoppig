@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const ZoomedSVGPage = ({projects}) => {
   const [scale, setScale] = useState(1);
-  const [transformOrigin, setTransformOrigin] = useState("center center");
+  const [transformOrigin, setTransformOrigin] = useState("0 0");
   const [isTextVisible, setIsTextVisible] = useState(true); // State to control text visibility
   const [isTextVisible2, setIsTextVisible2] = useState(false); // State to control text visibility
 
@@ -17,8 +17,8 @@ const ZoomedSVGPage = ({projects}) => {
     const y = queryParams.get("y");
 
     if (text && x && y) {
-      setScale(3); // or use a custom scale based on the page
-      setTransformOrigin(`${x}px ${y}px`);
+      setTransformOrigin(`${x}%, ${y}%`);
+      setScale(3.5); // or use a custom scale based on the page
 
       setTimeout(() => {
         setIsTextVisible(false);
@@ -30,7 +30,6 @@ const ZoomedSVGPage = ({projects}) => {
     }
   }, []);
 
-  console.log(projects)
 
   return (
     <div className="zoom">
@@ -55,8 +54,8 @@ const ZoomedSVGPage = ({projects}) => {
       height="100%"
        viewBox="0 0 2352.1 1785.3"
       style={{
-        transform: `scale(${scale})`,
-        transformOrigin: transformOrigin,
+        transform: `scale(${scale}) translate(${transformOrigin})`,
+        transformOrigin: 'center center',
         transition: "transform 0.5s ease-in-out",
         transitionTimingFunction: "ease-in-out"
       }}
@@ -264,7 +263,7 @@ const ZoomedSVGPage = ({projects}) => {
           c-0.2-0.2-0.6-0.2-0.9-0.3c-11.4-1.3-18.9-10.2-28.4-15c-6.2-3.2-13.6-6.2-17.4-13.3c-0.8-1.5-3.3-2.5-5.1-2.9
           c-7-1.4-11.5-6.3-16.4-10.8c-3.7-3.3-7.5-6.4-11.3-9.5c-9.3-7.5-21.4-10.4-30-19.1c-1.3-1.3-3.7-1.5-5.3-2.5
           c-9.6-5.8-19.4-11.3-28.5-17.8c-13.4-9.6-26.5-19.7-39.3-30.1C492,524.9,486.1,518.7,480.9,513.8L480.9,513.8z"/>
-        </g>
+      </g>
       <text transform="matrix(1 0 0 1 122.1599 309.8223)" className="st0 st1" style={{
           opacity: isTextVisible ? 1 : 0, // Fade text out by setting opacity
           transition: "opacity 0.4s ease-out", // Smooth opacity transition

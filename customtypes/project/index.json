@@ -38,6 +38,15 @@
           "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
         }
       },
+      "category": {
+        "type": "Link",
+        "config": {
+          "label": "Category",
+          "select": "document",
+          "repeat": false,
+          "customtypes": ["category"]
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
