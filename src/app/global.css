@@ -11,9 +11,9 @@
   --pink: #FEADFF;
 }
 
-*{
+/* *{
   box-sizing: border-box;
-}
+} */
 
 
 body {
@@ -58,6 +58,10 @@ body {
 .project-page{
   background-color: var(--pink);
   min-height: 100vh;
+}
+
+.project-page section{
+  box-sizing: border-box;
 }
 
 .zoom{
