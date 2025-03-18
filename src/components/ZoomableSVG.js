@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -57,7 +56,7 @@ export default function ZoomableSVG() {
     }, 500);
   };
   return (
-    <svg className="ant" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"  viewBox={viewBox}  style={{ transition: "all 1s ease-in-out" }}>
+    <svg className="ant" id="Layer_2" overflow="visible" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"  viewBox={viewBox}  style={{ transition: "all 1s ease-in-out" }}>
       <g id="Layer_1-2" data-name="Layer 1">
         <g>
           <g>
