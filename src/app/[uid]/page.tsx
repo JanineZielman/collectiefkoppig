@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 import { SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
@@ -7,6 +8,7 @@ import * as prismic from "@prismicio/client";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import Layout from "@/components/layout"
+import { PrismicNextLink } from "@prismicio/next";
 
 type Params = { uid: string };
 
@@ -43,10 +45,16 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const page = await client.getByUID("page", uid).catch(() => notFound());
   const navigation = await client.getByType("navigation");
   const projects = await client.getAllByType('project');
+  console.log(projects)
 
   return (
     <Layout navigation={navigation.results[0].data}>
       <h1 className="page-title">{prismic.asText(page.data.title)}</h1>
+      {projects.map((item, i) => {
+        return(
+          <Link key={`project${i}`} href={`/projects/${item.uid}`}><h1 className="page-title">{item.data.title}</h1></Link>
+        )
+      })}
       <SliceZone slices={page.data.slices} components={components} />
     </Layout>
   )
