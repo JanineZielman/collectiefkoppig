@@ -1,9 +1,63 @@
 "use client";
 import Link from "next/link";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function ZoomableSVG() {
+  const router = useRouter();
+  const [viewBox, setViewBox] = useState("0 0 2532 1836");
+  const [isZooming, setIsZooming] = useState(false);
+
+  const animateZoom = (start, end, duration) => {
+    let startTime = null;
+
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+
+      // Linear interpolation between start and end values
+      const newX = start.x + (end.x - start.x) * progress;
+      const newY = start.y + (end.y - start.y) * progress;
+      const newWidth = start.width + (end.width - start.width) * progress;
+      const newHeight = start.height + (end.height - start.height) * progress;
+
+      setViewBox(`${newX} ${newY} ${newWidth} ${newHeight}`);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  const handleZoom = (event, href, cx, cy, radiusX, radiusY = radiusX) => {
+    event.preventDefault();
+    if (isZooming) return;
+
+    setIsZooming(true);
+
+    const zoomFactor = 3;
+    const newWidth = 2500 / zoomFactor;
+    const newHeight = 2000 / zoomFactor;
+
+    const newX = cx - newWidth / 2;
+    const newY = cy - newHeight / 2;
+
+    // Animate the zoom effect smoothly
+    animateZoom(
+      { x: parseFloat(viewBox.split(" ")[0]), y: parseFloat(viewBox.split(" ")[1]), width: 2500, height: 2000 },
+      { x: newX, y: newY, width: newWidth, height: newHeight },
+      400 // Duration: 1 second
+    );
+
+    setTimeout(() => {
+      router.push(href);
+    }, 500);
+  };
   return (
-    <svg className="ant" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2532.84 1836.75">
+    <svg className="ant" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"  viewBox={viewBox}  style={{ transition: "all 1s ease-in-out" }}>
       <g id="Layer_1-2" data-name="Layer 1">
         <g>
           <g>
@@ -97,13 +151,26 @@ export default function ZoomableSVG() {
               <path d="m2388.39,1107.57c1.47-.25,2.78-.25,3.91.02.42.1.73.21.93.33.44.33,1.27.63,2.47.91.85.2,1.46.3,1.83.31.88.06,1.46.12,1.75.18,1.06.25,2.45,1.32,4.17,3.21,1.97,2.1,2.91,3.36,2.81,3.79-.07.28.25.66.97,1.12.64.45,1.08,1.26,1.33,2.44.25,1.18.26,2.26.03,3.25-.28,1.2-.76,1.83-1.45,1.9-.3,0-.79.1-1.46.27-.68.18-1.28.28-1.8.31-.53.03-1.08-.03-1.64-.16-.78-.18-1.38.01-1.81.58-.36.59-.89.8-1.6.63-1.06-.25-2.48-1.51-4.26-3.79-.63-.82-1.05-1.34-1.25-1.58-.21-.23-.53-.55-.95-.95-.43-.4-.85-.68-1.25-.85-.41-.17-.93-.33-1.57-.48-.28-.07-2.37-.4-6.25-1.01-3.11-.43-6.25.11-9.43,1.6-.68.36-1.72,1.78-3.11,4.25-1.4,2.47-2.27,4.45-2.61,5.93-.38,1.63-1.56,4.78-3.54,9.46-2.02,4.82-3.36,8.65-4.02,11.47-.46,1.98-.65,3.76-.57,5.34.02,1.2.45,2.56,1.28,4.1.83,1.54,1.66,2.47,2.47,2.81.2.12.51.23.93.33.99.23,2.12.27,3.38.12,1.27-.15,2.1-.44,2.5-.87.67-.66,2.25-1,4.71-1.03,2.38.03,3.82-.23,4.32-.78.41-.5.94-.68,1.58-.53.78.18,2.22-.64,4.32-2.46,2.1-1.82,3.41-3.38,3.94-4.67.14-.27.25-.57.33-.93.26-1.13-.21-1.84-1.41-2.12-.92-.21-2.41-.23-4.46-.03-2.74.25-4.5.29-5.28.11-.78-.18-1.67-.84-2.67-1.96-1.06-1.21-1.42-2.53-1.09-3.94.33-1.41.81-2.2,1.44-2.35.31-.08.8-.48,1.46-1.22.66-.74,1.27-1.05,1.83-.91.71.16,2.03-.09,3.98-.75,1.94-.66,3.09-.96,3.45-.87.42.1.96-.11,1.6-.63.71-.5,1.92-.56,3.61-.16,1.91.44,3.8,1.26,5.69,2.44,1.44.86,2.47,1.66,3.08,2.39.61.74,1.32,2.1,2.12,4.07,1.23,3.04,1.62,5.52,1.18,7.43-.38,1.63-1.19,3.25-2.42,4.86-1.23,1.61-2.35,2.49-3.35,2.63-.9.01-1.45.48-1.67,1.4-.21.92-1.77,2.23-4.66,3.94-2.9,1.71-5.37,2.81-7.42,3.3-1.25.23-3.37.72-6.38,1.48-3.01.75-5.06,1.23-6.15,1.42-2.65.5-4.78,1.16-6.38,1.98-.86.47-1.78.59-2.77.36-.14-.03-.37-.1-.68-.21-.31-.11-.57-.19-.78-.24-.96-.37-1.67-.35-2.14.06-.12.19-.39.24-.82.14-1.55-.36-3.75-2.07-6.58-5.11-2.83-3.04-4.15-5.14-3.96-6.29.18-.78.08-1.62-.3-2.53-.53-1.24-.82-3.02-.88-5.35-.1-1.81.31-4.7,1.23-8.66,1.33-5.73,3.05-10.88,5.17-15.45,1.07-2.36,1.74-4.1,2-5.23.03-.14.02-.25-.03-.34l.05-.21c-.01-.6.29-1.09.9-1.47.7-.43,1.19-1.29,1.49-2.56l.22-.95c.33-1.41.76-2.28,1.28-2.61.7-.43,1.14-1.04,1.32-1.82.21-.92.87-1.66,1.97-2.22.52-.33,1.2-.82,2.02-1.48.83-.66,1.6-1.19,2.33-1.58.72-.39,1.51-.67,2.38-.84,1.51-.39,2.3-.77,2.39-1.12.08-.35.62-.26,1.61.26,1.08.48,1.82.35,2.21-.38.45-.64,1.48-1.09,3.11-1.34,1.62-.25,3.11-.23,4.45.09,1.34.31,3.13.32,5.36.02Z" />
             </g>
           </g>
-          <Link href="/samenleving"><circle id="samen" cx="2234.72" cy="1042.54" r="298.12" /></Link>
-          <Link href="/kunst"><circle id="kunst" cx="1253.38" cy="495.69" r="298.12" /></Link>
-          <Link href="/koppen"><circle id="koppen" cx="320.39" cy="148.01" r="148.01" /></Link>
-          <Link href="/maak-je-niet-drukwerk"><circle id="druk" cx="148.01" cy="605.11" r="148.01" /></Link>
-          <Link href="/vak-apart"><circle id="apart" cx="599.39" cy="1352.97" r="230.23" /></Link>
-          <Link href="/donatie"><circle id="donatie" cx="1633.49" cy="1695.14" r="141.61" /></Link>
-          <Link href="/archief"><ellipse id="collectief" cx="1309.73" cy="1220.48" rx="141.61" ry="299.86" transform="translate(-296.29 2011.47) rotate(-69.2)" /></Link>
+           {/* Samenleving */}
+            <circle cx="2234.72" cy="1042.54" r="298.12" onClick={(e) => handleZoom(e, "/samenleving", 2234.72, 1042.54, 298.12)} style={{ cursor: "pointer", fill: "lightblue" }} />
+
+            {/* Kunst */}
+            <circle cx="1253.38" cy="495.69" r="298.12" onClick={(e) => handleZoom(e, "/kunst", 1253.38, 495.69, 298.12)} style={{ cursor: "pointer", fill: "lightcoral" }} />
+
+            {/* Koppen */}
+            <circle cx="320.39" cy="148.01" r="148.01" onClick={(e) => handleZoom(e, "/koppen", 320.39, 148.01, 148.01)} style={{ cursor: "pointer", fill: "lightgreen" }} />
+
+            {/* Drukwerk */}
+            <circle cx="148.01" cy="605.11" r="148.01" onClick={(e) => handleZoom(e, "/maak-je-niet-drukwerk", 148.01, 605.11, 148.01)} style={{ cursor: "pointer", fill: "orange" }} />
+
+            {/* Vak apart */}
+            <circle cx="599.39" cy="1352.97" r="230.23" onClick={(e) => handleZoom(e, "/vak-apart", 599.39, 1352.97, 230.23)} style={{ cursor: "pointer", fill: "purple" }} />
+
+            {/* Donatie */}
+            <circle cx="1633.49" cy="1695.14" r="141.61" onClick={(e) => handleZoom(e, "/donatie", 1633.49, 1695.14, 141.61)} style={{ cursor: "pointer", fill: "yellow" }} />
+
+            {/* Archief (Ellipse) */}
+            <ellipse cx="1309.73" cy="1220.48" rx="141.61" ry="299.86" transform="rotate(-69.2 1309.73 1220.48)" onClick={(e) => handleZoom(e, "/archief", 1309.73, 1220.48, 141.61, 299.86)} style={{ cursor: "pointer", fill: "pink" }} />
         </g>
       </g>
     </svg>
