@@ -125,38 +125,6 @@ export type AgendaItemDocument<Lang extends string = string> =
   >;
 
 /**
- * Content for Category documents
- */
-interface CategoryDocumentData {
-  /**
-   * Title field in *Category*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: category.title
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  title: prismic.KeyTextField;
-}
-
-/**
- * Category document from Prismic
- *
- * - **API ID**: `category`
- * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/custom-types
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type CategoryDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<CategoryDocumentData>,
-    "category",
-    Lang
-  >;
-
-/**
  * Content for Navigation documents
  */
 interface NavigationDocumentData {
@@ -310,7 +278,7 @@ interface ProjectDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  category: prismic.ContentRelationshipField<"category">;
+  category: prismic.ContentRelationshipField<"page">;
 
   /**
    * Slice Zone field in *Project*
@@ -373,7 +341,6 @@ export type ProjectDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | AgendaItemDocument
-  | CategoryDocument
   | NavigationDocument
   | PageDocument
   | ProjectDocument;
@@ -538,8 +505,6 @@ declare module "@prismicio/client" {
       AgendaItemDocument,
       AgendaItemDocumentData,
       AgendaItemDocumentDataSlicesSlice,
-      CategoryDocument,
-      CategoryDocumentData,
       NavigationDocument,
       NavigationDocumentData,
       PageDocument,

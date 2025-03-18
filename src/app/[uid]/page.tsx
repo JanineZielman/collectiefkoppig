@@ -42,6 +42,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const client = createClient();
   const page = await client.getByUID("page", uid).catch(() => notFound());
   const navigation = await client.getByType("navigation");
+  const projects = await client.getAllByType('project');
 
   return (
     <Layout navigation={navigation.results[0].data}>

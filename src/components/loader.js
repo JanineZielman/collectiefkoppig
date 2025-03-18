@@ -3,6 +3,16 @@ import { useState, useEffect, useRef } from 'react';
 import styles from './Loader.module.css';
 
 const Loader = () => {
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
+
+  useEffect(() => {
+    const hasLoaded = sessionStorage.getItem("hasLoaded");
+    if (!hasLoaded) {
+      setIsFirstLoad(true);
+      sessionStorage.setItem("hasLoaded", "true");
+    }
+  }, []);
+
   const images = [
     '/mondjes/SVG/mond1.svg',
     '/mondjes/SVG/mond2.svg',
@@ -50,13 +60,17 @@ const Loader = () => {
   }, [shuffledImages, isVisible]);
 
   return (
-    <div className={`${styles.loader} ${!isVisible ? styles.hidden : ''}`}>
-      <video ref={videoRef} autoPlay playsInline muted loop>
-        <source src="/koppig2.mp4" type="video/mp4" />
-      </video>
-      <div className={styles.mondjes} style={{ maskImage: `url(${shuffledImages[index]})` }}>
+    <>
+    {isFirstLoad &&
+      <div className={`${styles.loader} ${!isVisible ? styles.hidden : ''}`}>
+        <video ref={videoRef} autoPlay playsInline muted loop>
+          <source src="/koppig2.mp4" type="video/mp4" />
+        </video>
+        <div className={styles.mondjes} style={{ maskImage: `url(${shuffledImages[index]})` }}>
+        </div>
       </div>
-    </div>
+    }
+    </>
   );
 };
 
