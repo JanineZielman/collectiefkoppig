@@ -84,7 +84,7 @@ body {
   bottom: 1vh;
   font-family:'Koppig1-Regular';
   font-size: 150px;
-  z-index: -1;
+  z-index: 2;
   circle, ellipse{
     opacity: 0;
   }
@@ -403,21 +403,25 @@ img{
 
 @media only screen and (max-width: 900px) {
   .ant{
-    height: 35svh;
+    height: 35vh;
     max-width: 100vw;
     left: 0;
     transform: translate(0);
-    top: 50px;
-    position: relative;
+    top: 80px;
   }
   .agenda{
     width: 95%;
     position: relative;
+    top: 40vh;
     right: 2.5%;
     left: 2.5%;
     padding: 0;
+    padding-bottom: 100px;
     h2{
       margin-top: 0;
+    }
+    .date{
+      font-size: 16px;
     }
   }
   .page-title{
@@ -450,13 +454,20 @@ img{
     margin-top: 24px;
     .agenda-item{
       width: 44%;
-      // padding-bottom: 24px;
+      padding-bottom: 14px;
+      .date{
+        font-size: 16px;
+      }
     }
   }
   
   h2{
     font-size: 30px;
   }
+  h3{
+    font-size: 20px;
+  }
+
   .archief{
     .projects-list{
       margin-top: 24px;
