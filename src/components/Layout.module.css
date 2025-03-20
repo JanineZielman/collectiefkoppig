@@ -48,9 +48,13 @@
 
 @media only screen and (max-width: 600px) {
   .logo img{
-    height: 45px;
-    margin-left: 2vw;
+    height: 40px;
+    margin-left: 5vw;
     width: auto;
+  }
+  .menu img{
+    height: 40px;
+    top: 25px;
   }
   .menu.open img{
     right: 5vw;

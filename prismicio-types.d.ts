@@ -66,6 +66,28 @@ interface AgendaItemDocumentData {
   info: prismic.RichTextField;
 
   /**
+   * Image field in *Agenda Item*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Category field in *Agenda Item*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: agenda_item.category
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  category: prismic.ContentRelationshipField<"page">;
+
+  /**
    * Slice Zone field in *Agenda Item*
    *
    * - **Field Type**: Slice Zone

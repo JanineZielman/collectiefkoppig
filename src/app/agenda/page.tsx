@@ -29,20 +29,37 @@ export default async function Index() {
   // The client queries content from the Prismic API
   const client = createClient();
   const navigation = await client.getByType("navigation");
-  const projects = await client.getAllByType('project');
+  const agenda = await client.getAllByType('agenda_item', {
+    orderings: [
+      {
+        field: 'my.agenda_item.date',
+        direction: 'asc',
+      },
+    ]
+  });
   
 
   return (
     <div className="archief">
       <Layout navigation={navigation.results[0].data}>
-        <h1 className="page-title">Archief</h1>
-        <div className="projects-list">
-          {projects.map((item, i) => {
+        <h1 className="page-title">Agenda</h1>
+        <div className="agenda-grid">
+          {agenda.map((item, i) => {
             return(
-              <div key={`project${i}`} className={`project ${(item.data.category as ItemCategory)?.uid}`}>
-                {/* <div className="image"><PrismicImage field={item.data.image}/></div> */}
-                <Link href={`/projects/${item.uid}`}>
-                  <h2>{item.data.title}</h2>
+              <div key={`agenda${i}`} className={`agenda-item`}>
+                <Link href={`/agenda/${item.uid}`}>
+                  <div className="image"><PrismicImage field={item.data.image}/></div>
+                  
+                  <p className="date">
+                      {item.data.date
+                        ? new Date(item.data.date).toLocaleDateString("nl-NL", {
+                            day: "numeric",
+                            month: "long",
+                          })
+                        : "Geen datum beschikbaar"}
+                    </p>
+      
+                    <h3>{prismic.asText(item.data.title)}</h3>
                 </Link>
               </div>
             )

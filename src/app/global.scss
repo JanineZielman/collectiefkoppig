@@ -46,6 +46,18 @@ body {
  h2{
   font-size: 48px;
  }
+ h3{
+  margin: 0;
+  width: fit-content;
+  margin-top: 2px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 24px;
+ }
+
+ p a{
+  text-decoration: underline;
+ }
 
 
 .page-title{
@@ -62,19 +74,72 @@ body {
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
 	animation-duration: 1s;
-  height: 88vh;
-  max-width: 90vw;
+  height: 90vh;
+  max-width: 70vw;
   object-fit: contain;
   object-position: center;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  bottom: 2vw;
+  transform: translate(-70%);
+  bottom: 1vh;
   font-family:'Koppig1-Regular';
   font-size: 150px;
   z-index: -1;
   circle, ellipse{
     opacity: 0;
+  }
+}
+
+.button{
+  margin-top: 24px;
+  display: block;
+  font-weight: bold;
+  text-align: right;
+  font-family:'Koppig1-Regular';
+  font-size: 24px;
+}
+
+.agenda{
+  position: absolute;
+  right: 14px;
+  top: 80px;
+  padding: 14px;
+  width: 23vw;
+  p{
+    font-size: 18px;
+  }
+  h2{
+    border-bottom: 2px solid var(--black);
+    font-family: 'Koppig1-Regular';
+    margin-bottom: 0;
+    font-size: 36px;
+  }
+  h3{
+    padding: 3px 10px;
+    border-radius: 5px;
+  }
+  .educatie{
+    h3{
+      background-color: var(--brown);
+    }
+  }
+  .kunst{
+    h3{
+      background-color: var(--yellow);
+    }
+  }
+  .samenleving{
+    h3{
+      background-color: var(--pink);
+    }
+  }
+  .date{
+    margin: 0;
+  }
+  .agenda-item{
+    margin-top: 14px;
+    margin-bottom: 14px;
+    display: block;
   }
 }
 
@@ -288,42 +353,39 @@ img{
   text-decoration: none;
 }
 
-.projects-grid{
+.agenda-grid{
   display: flex;
   padding: 0 2vw;
+  flex-wrap: wrap;
+  .agenda-item{
+    width: 20vw;
+    position: relative;
+    margin: 2vw;
+    p{
+      margin-bottom: 0;
+      font-size: 18px;
+    }
+    h3{
+      margin: 0;
+    }
+    .image{
+      position: relative;
+      &:after{
+        content: "";
+        position: absolute;
+        width: 110%;
+        height: 110%;
+        left: -5%;
+        top: -4%;
+        background-image: url(/frame.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        z-index: 2;
+      }
+    }
+  }
 }
 
-.project-item{
-  width: 20vw;
-  position: relative;
-  margin: 2vw;
-}
-
-.project-item a{
-  text-decoration: none;
-  color: black;
-  font-family:'Koppig1-Regular';
-  font-size: 36px;
-  margin-top: 14px;
-  display: block;
-}
-
-.project-item .image{
-  position: relative;
-}
-
-.project-item .image:after{
-  content: "";
-  position: absolute;
-  width: 110%;
-  height: 110%;
-  left: -5%;
-  top: -4%;
-  background-image: url(/frame.png);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  z-index: 2;
-}
 
 .text-section{
   max-width: 900px;
@@ -340,6 +402,24 @@ img{
 }
 
 @media only screen and (max-width: 900px) {
+  .ant{
+    height: 35svh;
+    max-width: 100vw;
+    left: 0;
+    transform: translate(0);
+    top: 50px;
+    position: relative;
+  }
+  .agenda{
+    width: 95%;
+    position: relative;
+    right: 2.5%;
+    left: 2.5%;
+    padding: 0;
+    h2{
+      margin-top: 0;
+    }
+  }
   .page-title{
     font-size: 48px;
     margin-top: 24px;
@@ -365,19 +445,25 @@ img{
   p{
     font-size: 18px;
   }
-  .projects-grid{
-    flex-direction: column;
-    margin-left: 10%;
+  .agenda-grid{
+    justify-content: space-between;
+    margin-top: 24px;
+    .agenda-item{
+      width: 44%;
+      // padding-bottom: 24px;
+    }
   }
-  .project-item{
-    width: 85%;
-    padding-bottom: 24px;
-  }
+  
   h2{
     font-size: 30px;
   }
+  .archief{
+    .projects-list{
+      margin-top: 24px;
+    }
+  }
   .projects-list{
-    padding: 0 5vw;
+    padding: 0 2.5vw;
     margin-left: auto;
     margin-right: auto;
     .project{
@@ -385,4 +471,5 @@ img{
       margin-left: 24px;
     }
   }
+
 }

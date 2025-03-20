@@ -53,6 +53,25 @@
           "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
         }
       },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "Image",
+          "constraint": {
+            "width": 1080
+          },
+          "thumbnails": []
+        }
+      },
+      "category": {
+        "type": "Link",
+        "config": {
+          "label": "Category",
+          "select": "document",
+          "repeat": false,
+          "customtypes": ["page"]
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
