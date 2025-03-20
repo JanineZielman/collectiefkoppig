@@ -14,16 +14,15 @@
   --grey: #d3d3d3;
   --black: #000;
   --purple2: #371d5384;
-  --yellow2: #e1ff75a9;
+  --yellow2: #e1ff754b;
   --oker2: #dcae2f7c;
   --brown2: #65430081;
-  --pink2: #fda3ff81;
+  --pink2: #fda3ff38;
 }
 
 /* *{
   box-sizing: border-box;
 } */
-
 
 body {
   margin: 0;
@@ -111,7 +110,8 @@ body {
 	animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-delay: 0.4s;
-  height: 0;
+  height: fit-content;
+  max-height: 0;
   overflow: hidden;
   p{
     font-size: 18px;
@@ -151,6 +151,17 @@ body {
   }
 }
 
+.home{
+  background-color: var(--pink2);
+  width: 100%;
+  min-height: 100vh;
+}
+
+.agenda-page{
+  background-color: var(--yellow2);
+  min-height: 100vh;
+}
+
 .archief{
   // background-color: var(--purple);
   animation-name: fadeInOpacity;
@@ -160,15 +171,20 @@ body {
   min-height: 100vh;
   .projects-list{
     margin-top: 48px;
+    .project{
+      margin: 5px;
+      padding: 5px 20px;
+      border-radius: 10px;
+    }
   }
   .educatie{
-    color: var(--brown);
+    background-color: var(--brown);
   }
   .kunst{
-    color: var(--yellow);
+    background-color: var(--yellow);
   }
   .samenleving{
-    color: var(--pink );
+    background-color: var(--pink );
   }
 }
 
@@ -188,10 +204,10 @@ body {
 
 @keyframes heightAni {
 	0% {
-		height: 0;
+		max-height: 0;
 	}
 	100% {
-		height: 100%;
+		max-height: 60vh;
 	}
 }
 
@@ -247,6 +263,7 @@ body {
       &:hover{
         font-family:'Koppig1-Regular';
         letter-spacing: 1px;
+        line-height: 1.4;
       }
     }
   }
@@ -434,7 +451,7 @@ img{
     right: 2.5%;
     left: 2.5%;
     padding: 0;
-    padding-bottom: 100px;
+    // padding-bottom: 100px;
     h2{
       margin-top: 0;
       font-size: 30px;

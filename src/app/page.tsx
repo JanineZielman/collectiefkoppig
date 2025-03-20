@@ -36,8 +36,10 @@ export default async function Index() {
   );
 
   return (
-    <Layout navigation={navigation.results[0].data}>
-      <Loader agenda={agenda}/>
-    </Layout>
+    <div className="home">
+      <Layout navigation={navigation.results[0].data}>
+        <Loader agenda={agenda}/>
+      </Layout>
+    </div>
   )
 }

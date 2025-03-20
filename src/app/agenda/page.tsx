@@ -1,10 +1,9 @@
 import { Metadata } from "next";
 
-import { PrismicImage, SliceZone } from "@prismicio/react";
+import { PrismicImage } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
-import { components } from "@/slices";
 import Layout from "@/components/layout"
 import Link from "next/link";
 
@@ -23,8 +22,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-type ItemCategory = prismic.ContentRelationshipField<"project"> & { uid: string };
-
 export default async function Index() {
   // The client queries content from the Prismic API
   const client = createClient();
@@ -40,7 +37,7 @@ export default async function Index() {
   
 
   return (
-    <div className="archief">
+    <div className="agenda-page">
       <Layout navigation={navigation.results[0].data}>
         <h1 className="page-title">Agenda</h1>
         <div className="agenda-grid">
