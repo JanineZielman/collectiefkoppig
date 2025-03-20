@@ -166,7 +166,7 @@ export default function ZoomableSVG() {
             <circle cx="599.39" cy="1352.97" r="230.23" onClick={(e) => handleZoom(e, "/educatie", 599.39, 1352.97, 230.23)} style={{ cursor: "pointer", fill: "purple" }} />
 
             {/* Donatie */}
-            <circle cx="1633.49" cy="1695.14" r="141.61" onClick={(e) => handleZoom(e, "/donatie", 1633.49, 1695.14, 141.61)} style={{ cursor: "pointer", fill: "yellow" }} />
+            <circle cx="1633.49" cy="1695.14" r="141.61" onClick={(e) => handleZoom(e, "/#", 1633.49, 1695.14, 141.61)} style={{ cursor: "pointer", fill: "yellow" }} />
 
             {/* Archief (Ellipse) */}
             <ellipse cx="1309.73" cy="1220.48" rx="141.61" ry="299.86" transform="rotate(-69.2 1309.73 1220.48)" onClick={(e) => handleZoom(e, "/archief", 1309.73, 1220.48, 141.61, 299.86)} style={{ cursor: "pointer", fill: "pink" }} />

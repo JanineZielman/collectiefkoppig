@@ -52,17 +52,22 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       <Layout navigation={navigation.results[0].data}>
         <h1 className="page-title">{prismic.asText(page.data.title)}</h1>
         <SliceZone slices={page.data.slices} components={components} />
-        <div className="projects-list">
-          {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).map((item, i) => {
-            return(
-              <div className="project" key={`project${i}`}>
-                <Link key={`project${i}`} href={`/projects/${item.uid}`}>
-                  <h2>{item.data.title}</h2>
-                </Link>
-              </div>
-            )
-          })}
+        {projects.length > 0 &&
+        <div className="projects-list-wrapper">
+          <h2 className="title">Projects</h2>
+          <div className="projects-list">
+            {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).map((item, i) => {
+              return(
+                <div className="project" key={`project${i}`}>
+                  <Link key={`project${i}`} href={`/projects/${item.uid}`}>
+                    <h2>{item.data.title}</h2>
+                  </Link>
+                </div>
+              )
+            })}
+          </div>
         </div>
+        }
       </Layout>
     </div>
   )

@@ -23,23 +23,28 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+type ItemCategory = prismic.ContentRelationshipField<"project"> & { uid: string };
+
 export default async function Index() {
   // The client queries content from the Prismic API
   const client = createClient();
   const home = await client.getByUID("page", "home");
   const navigation = await client.getByType("navigation");
   const projects = await client.getAllByType('project');
+  
 
   return (
     <div className="archief">
       <Layout navigation={navigation.results[0].data}>
         <h1 className="page-title">Archief</h1>
-        <div className="projects-grid">
+        <div className="projects-list">
           {projects.map((item, i) => {
             return(
-              <div key={`project${i}`} className="project-item">
-                <div className="image"><PrismicImage field={item.data.image}/></div>
-                <Link href={`/projects/${item.uid}`}>{item.data.title}</Link>
+              <div key={`project${i}`} className={`project ${(item.data.category as ItemCategory)?.uid}`}>
+                {/* <div className="image"><PrismicImage field={item.data.image}/></div> */}
+                <Link href={`/projects/${item.uid}`}>
+                  <h2>{item.data.title}</h2>
+                </Link>
               </div>
             )
           })}
