@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       <Layout navigation={navigation.results[0].data}>
         <h1 className="page-title">{prismic.asText(page.data.title)}</h1>
         <SliceZone slices={page.data.slices} components={components} />
-        {projects.length > 0 &&
+        {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).length > 0 &&
         <div className="projects-list-wrapper">
           <h2 className="title">Projects</h2>
           <div className="projects-list">

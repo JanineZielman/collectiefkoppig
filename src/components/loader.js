@@ -1,8 +1,9 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
 import styles from './Loader.module.css';
+import Home from '@/components/home'
 
-const Loader = () => {
+const Loader = ({agenda}) => {
   const [isFirstLoad, setIsFirstLoad] = useState(false);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
   const [shuffledImages, setShuffledImages] = useState([]);
@@ -94,7 +95,11 @@ const Loader = () => {
           </video>
           <div className={styles.mondjes} style={{ maskImage: `url(${shuffledImages[index]})` }} />
         </div>
-      )}
+      )
+    }
+    {(!isFirstLoad || !isVisible) && (
+      <Home agenda={agenda}/>
+    )}
     </>
   );
 };
