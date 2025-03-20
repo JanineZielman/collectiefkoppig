@@ -41,7 +41,10 @@
   transform: translate(-50%, -50%);
   width: 400px;
   height: 400px;
+  max-width: 50vw;
+  max-height: 50vw;
   background-color: white;
   mask-size: contain;
   mask-repeat: no-repeat;
+  mask-position: center center;
 }
