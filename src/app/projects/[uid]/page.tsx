@@ -38,6 +38,8 @@ export async function generateMetadata({
   };
 }
 
+type PageCategory = prismic.ContentRelationshipField<"page"> & { uid: string };
+
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { uid } = await params;
   const client = createClient();
@@ -45,7 +47,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const navigation = await client.getByType("navigation");
 
   return (
-    <div className="project-page">
+    <div className={`page ${(page.data.category as PageCategory)?.uid}`}>
     <Layout navigation={navigation.results[0].data}>
       <h1 className="page-title">{page.data.title}</h1>
       <div className="image-text">    

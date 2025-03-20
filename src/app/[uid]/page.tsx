@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { isFilled } from "@prismicio/client";
 
 import { SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
@@ -45,18 +46,25 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const page = await client.getByUID("page", uid).catch(() => notFound());
   const navigation = await client.getByType("navigation");
   const projects = await client.getAllByType('project');
-  console.log(projects)
 
   return (
-    <Layout navigation={navigation.results[0].data}>
-      <h1 className="page-title">{prismic.asText(page.data.title)}</h1>
-      {projects.map((item, i) => {
-        return(
-          <Link key={`project${i}`} href={`/projects/${item.uid}`}><h1 className="page-title">{item.data.title}</h1></Link>
-        )
-      })}
-      <SliceZone slices={page.data.slices} components={components} />
-    </Layout>
+    <div className={`page ${page.uid}`}>
+      <Layout navigation={navigation.results[0].data}>
+        <h1 className="page-title">{prismic.asText(page.data.title)}</h1>
+        <SliceZone slices={page.data.slices} components={components} />
+        <div className="projects-list">
+          {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).map((item, i) => {
+            return(
+              <div className="project" key={`project${i}`}>
+                <Link key={`project${i}`} href={`/projects/${item.uid}`}>
+                  <h2>{item.data.title}</h2>
+                </Link>
+              </div>
+            )
+          })}
+        </div>
+      </Layout>
+    </div>
   )
 }
 

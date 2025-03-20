@@ -52,4 +52,7 @@
     margin-left: 2vw;
     width: auto;
   }
+  .menu.open img{
+    right: 5vw;
+  }
 }

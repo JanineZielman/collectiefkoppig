@@ -15,9 +15,10 @@ const Image = ({ slice }: ImageProps): JSX.Element => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="image-caption"
     >
       <div className="image-wrapper">
-        <PrismicNextImage field={slice.primary.image} />
+        <PrismicNextImage field={slice.primary.image} alt="" />
       </div>
       <PrismicRichText field={slice.primary.caption} />
     </section>

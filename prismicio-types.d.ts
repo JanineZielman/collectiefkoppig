@@ -158,7 +158,7 @@ export type NavigationDocument<Lang extends string = string> =
     Lang
   >;
 
-type PageDocumentDataSlicesSlice = never;
+type PageDocumentDataSlicesSlice = QuoteSlice | ImageSlice | TextSlice;
 
 /**
  * Content for Page documents
