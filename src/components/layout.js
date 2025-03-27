@@ -17,6 +17,7 @@ const Layout = ({ navigation, children }) => {
         <img src="/SVG/menu.svg" alt="Menu" />
       </div>
       <div className={`${styles.frame} ${menuOpen ? styles.open : ''}`}>
+        <h3>Menu</h3>
         {navigation.link.map((item, i) => (
           <PrismicLink key={`link${i}`} field={item}>
             {item.text}

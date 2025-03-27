@@ -20,12 +20,18 @@
   padding-top: 24px;
 }
 
+.frame h3{
+  font-family: "Koppig1-Regular";
+  font-size: 36px;
+  border-bottom: 2px solid black;
+  width: 100%;
+}
+
 .frame a{
   display: block;
   text-decoration: none;
   color: black;
-  font-family: Koppig1-Regular;
-  font-size: 30px;
+  font-size: 24px;
   margin-top: 14px;
 }
 
@@ -33,12 +39,10 @@
   transition: all 0.3s ease-in-out;
   position: fixed;
   top: 14px;
-  right: -225px;
-  max-width: 175px;
-  background-image: url(/SVG/frame.svg);
-  background-size: 100%;
-  background-repeat: no-repeat;
-  padding: 48px 24px;
+  right: -400px;
+  /* max-width: 175px; */
+  background-color: var(--grey);
+  padding: 48px 24px 24px 24px;
   z-index: 8;
 }
 
@@ -48,7 +52,7 @@
 
 @media only screen and (max-width: 600px) {
   .logo img{
-    height: 40px;
+    height: 60px;
     margin-left: 5vw;
     width: auto;
   }
