@@ -1,0 +1,22 @@
+.imageCaption{
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  p{
+    font-size: 18px;
+  }
+}
+
+.imageWrapper{
+  position: relative;
+  height: fit-content;
+  max-height: 60vh;
+  max-width: 900px;
+  width: fit-content;
+  margin: 48px auto;
+  img{
+    object-fit: cover;
+    width: 100%;
+    max-height: 60vh;
+  }
+}

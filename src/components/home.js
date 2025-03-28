@@ -24,7 +24,7 @@ const Home = ({agenda}) => {
                     : "Geen datum beschikbaar"}
                 </p>
 
-                <h3>{prismic.asText(item.data.title)}</h3>
+                <h3>{item.data.title}</h3>
                 <PrismicRichText field={item.data.info}/>
               </Link>
             )

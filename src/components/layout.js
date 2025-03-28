@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { PrismicLink } from '@prismicio/react';
-import styles from './Layout.module.css';
+import styles from './Layout.module.scss';
 import Link from 'next/link';
 
 const Layout = ({ navigation, children }) => {

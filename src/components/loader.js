@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
-import styles from './Loader.module.css';
+import styles from './Loader.module.scss';
 import Home from '@/components/home'
 
 const Loader = ({agenda}) => {

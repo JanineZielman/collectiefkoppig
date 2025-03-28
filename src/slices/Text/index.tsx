@@ -1,6 +1,7 @@
 'use client'
 import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
+import styles from './Text.module.scss';
 
 /**
  * Props for `Text`.
@@ -15,7 +16,7 @@ const Text = ({ slice }: TextProps): JSX.Element => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="text-section"
+      className={styles.textSection}
     >
      <PrismicRichText field={slice.primary.text} />
     </section>

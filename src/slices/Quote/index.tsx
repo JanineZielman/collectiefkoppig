@@ -1,5 +1,6 @@
 import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
+import styles from './Quote.module.scss';
 
 /**
  * Props for `Quote`.
@@ -14,7 +15,7 @@ const Quote = ({ slice }: QuoteProps): JSX.Element => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="quote"
+      className={styles.quote}
     >
       <PrismicRichText field={slice.primary.quote} />
     </section>

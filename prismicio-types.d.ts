@@ -13,13 +13,13 @@ interface AgendaItemDocumentData {
   /**
    * Title field in *Agenda Item*
    *
-   * - **Field Type**: Rich Text
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: agenda_item.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  title: prismic.RichTextField;
+  title: prismic.KeyTextField;
 
   /**
    * Date field in *Agenda Item*
@@ -252,6 +252,21 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
+/**
+ * Item in *Project → Images*
+ */
+export interface ProjectDocumentDataImagesItem {
+  /**
+   * Image field in *Project → Images*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.images[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
 type ProjectDocumentDataSlicesSlice = QuoteSlice | TextSlice | ImageSlice;
 
 /**
@@ -301,6 +316,17 @@ interface ProjectDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
   category: prismic.ContentRelationshipField<"page">;
+
+  /**
+   * Images field in *Project*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.images[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  images: prismic.GroupField<Simplify<ProjectDocumentDataImagesItem>>;
 
   /**
    * Slice Zone field in *Project*
@@ -534,6 +560,7 @@ declare module "@prismicio/client" {
       PageDocumentDataSlicesSlice,
       ProjectDocument,
       ProjectDocumentData,
+      ProjectDocumentDataImagesItem,
       ProjectDocumentDataSlicesSlice,
       AllDocumentTypes,
       ImageSlice,

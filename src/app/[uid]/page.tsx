@@ -9,7 +9,7 @@ import * as prismic from "@prismicio/client";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import Layout from "@/components/layout"
-import { PrismicNextLink } from "@prismicio/next";
+import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 
 type Params = { uid: string };
 
@@ -53,14 +53,15 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         <h1 className="page-title">{prismic.asText(page.data.title)}</h1>
         <SliceZone slices={page.data.slices} components={components} />
         {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).length > 0 &&
-        <div className="projects-list-wrapper">
-          <h2 className="title">Projects</h2>
-          <div className="projects-list">
+        <div className="projects-grid-wrapper">
+          <h2 className="title">Projecten</h2>
+          <div className="project-grid">
             {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).map((item, i) => {
               return(
-                <div className="project" key={`project${i}`}>
+                <div className="project-item" key={`project${i}`}>
                   <Link key={`project${i}`} href={`/projects/${item.uid}`}>
                     <h2>{item.data.title}</h2>
+                    <PrismicNextImage field={item.data.image}/>
                   </Link>
                 </div>
               )

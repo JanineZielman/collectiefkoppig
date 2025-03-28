@@ -56,7 +56,7 @@ export default async function Index() {
                         : "Geen datum beschikbaar"}
                     </p>
       
-                    <h3>{prismic.asText(item.data.title)}</h3>
+                    <h3>{item.data.title}</h3>
                 </Link>
               </div>
             )
