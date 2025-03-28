@@ -11,7 +11,7 @@ const Project = ({page}) => {
       <div className={styles.hero}>    
         {page.data.images?.length > 0 ?
           <div className={styles.images}>
-            {page.data.images?.map((item) => (
+            {page.data.images?.map((item, i) => (
               <PrismicNextImage field={item.image} key={`images${i}`} />
             ))}
           </div>
