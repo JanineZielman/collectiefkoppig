@@ -147,6 +147,21 @@ export type AgendaItemDocument<Lang extends string = string> =
   >;
 
 /**
+ * Item in *Navigation → Footer*
+ */
+export interface NavigationDocumentDataFooterItem {
+  /**
+   * Column field in *Navigation → Footer*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navigation.footer[].column
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  column: prismic.RichTextField;
+}
+
+/**
  * Content for Navigation documents
  */
 interface NavigationDocumentData {
@@ -162,6 +177,17 @@ interface NavigationDocumentData {
   link: prismic.Repeatable<
     prismic.LinkField<string, string, unknown, prismic.FieldState, never>
   >;
+
+  /**
+   * Footer field in *Navigation*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navigation.footer[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  footer: prismic.GroupField<Simplify<NavigationDocumentDataFooterItem>>;
 }
 
 /**
@@ -180,7 +206,11 @@ export type NavigationDocument<Lang extends string = string> =
     Lang
   >;
 
-type PageDocumentDataSlicesSlice = QuoteSlice | ImageSlice | TextSlice;
+type PageDocumentDataSlicesSlice =
+  | KoppenSlice
+  | QuoteSlice
+  | ImageSlice
+  | TextSlice;
 
 /**
  * Content for Page documents
@@ -446,6 +476,73 @@ type ImageSliceVariation = ImageSliceDefault;
 export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
 
 /**
+ * Item in *Koppen → Default → Primary → Koppen*
+ */
+export interface KoppenSliceDefaultPrimaryKoppenItem {
+  /**
+   * Image field in *Koppen → Default → Primary → Koppen*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: koppen.default.primary.koppen[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Description field in *Koppen → Default → Primary → Koppen*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: koppen.default.primary.koppen[].description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *Koppen → Default → Primary*
+ */
+export interface KoppenSliceDefaultPrimary {
+  /**
+   * Koppen field in *Koppen → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: koppen.default.primary.koppen[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  koppen: prismic.GroupField<Simplify<KoppenSliceDefaultPrimaryKoppenItem>>;
+}
+
+/**
+ * Default variation for Koppen Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type KoppenSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<KoppenSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Koppen*
+ */
+type KoppenSliceVariation = KoppenSliceDefault;
+
+/**
+ * Koppen Shared Slice
+ *
+ * - **API ID**: `koppen`
+ * - **Description**: Koppen
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type KoppenSlice = prismic.SharedSlice<"koppen", KoppenSliceVariation>;
+
+/**
  * Primary content in *Quote → Default → Primary*
  */
 export interface QuoteSliceDefaultPrimary {
@@ -555,6 +652,7 @@ declare module "@prismicio/client" {
       AgendaItemDocumentDataSlicesSlice,
       NavigationDocument,
       NavigationDocumentData,
+      NavigationDocumentDataFooterItem,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
@@ -567,6 +665,11 @@ declare module "@prismicio/client" {
       ImageSliceDefaultPrimary,
       ImageSliceVariation,
       ImageSliceDefault,
+      KoppenSlice,
+      KoppenSliceDefaultPrimaryKoppenItem,
+      KoppenSliceDefaultPrimary,
+      KoppenSliceVariation,
+      KoppenSliceDefault,
       QuoteSlice,
       QuoteSliceDefaultPrimary,
       QuoteSliceVariation,

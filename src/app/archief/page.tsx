@@ -42,7 +42,7 @@ export default async function Index() {
               <div key={`project${i}`} className={`project ${(item.data.category as ItemCategory)?.uid}`}>
                 {/* <div className="image"><PrismicImage field={item.data.image}/></div> */}
                 <Link href={`/projects/${item.uid}`}>
-                  <h2>{item.data.title}</h2>
+                  <h3>{item.data.title}</h3>
                 </Link>
               </div>
             )

@@ -56,11 +56,11 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         <div className="projects-grid-wrapper">
           <h2 className="title">Projecten</h2>
           <div className="project-grid">
-            {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).map((item, i) => {
+            {projects.filter((project) => isFilled.contentRelationship(project.data.category) && project.data.category.uid == page.uid).slice(0,4).map((item, i) => {
               return(
                 <div className="project-item" key={`project${i}`}>
                   <Link key={`project${i}`} href={`/projects/${item.uid}`}>
-                    <h2>{item.data.title}</h2>
+                    <h3>{item.data.title}</h3>
                     <PrismicNextImage field={item.data.image}/>
                   </Link>
                 </div>

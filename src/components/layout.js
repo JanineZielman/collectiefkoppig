@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react';
-import { PrismicLink } from '@prismicio/react';
+import { PrismicLink, PrismicRichText } from '@prismicio/react';
 import styles from './Layout.module.scss';
 import Link from 'next/link';
+
 
 const Layout = ({ navigation, children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,7 +12,7 @@ const Layout = ({ navigation, children }) => {
   return (
     <div className={styles.layout}>
       <Link href="/" className={styles.logo}>
-        <img src="/SVG/koppig.svg"/>
+        Collectief Koppig
       </Link>
       <div className={`${styles.menu} ${menuOpen ? styles.open : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
         <img src="/SVG/menu.svg" alt="Menu" />
@@ -25,6 +26,13 @@ const Layout = ({ navigation, children }) => {
         ))}
       </div>
       {children}
+      <footer>
+        {navigation.footer.map((item, i) => (
+          <div className='column' key={`column${i}`}>
+            <PrismicRichText field={item.column} />
+          </div>
+        ))}
+      </footer>
     </div>
   );
 };

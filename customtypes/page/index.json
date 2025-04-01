@@ -27,6 +27,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "koppen": {
+              "type": "SharedSlice"
+            },
             "quote": {
               "type": "SharedSlice"
             },

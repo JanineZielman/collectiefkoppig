@@ -10,10 +10,11 @@
   --yellow: #e2ff75;
   --oker: #dcaf2f;
   --brown: #654400;
+  --blue: #7593FF;
   --pink: #fea3ff;
   --grey: #d3d3d3;
   --black: #000;
-  --blue2: rgb(230,248,255);
+  --blue2: rgb(214,223,255);
   --yellow2: rgb(246,247,216);
   --pink2: rgb(245,228,240);
 }
@@ -56,14 +57,19 @@ body {
   text-decoration: underline;
  }
 
+ strong{
+  font-weight: 500;
+ }
+
 
 .page-title{
   font-weight: 300;
-  margin-top: 5px;
+  margin-top: 0px;
   text-align: center;
   font-size: 42px;
   margin-bottom: 24px;
   font-weight: 400;
+  font-family: "Koppig1-Regular";
 }
 
 .ant{
@@ -126,7 +132,7 @@ body {
   }
   .onderwijs{
     h3{
-      background-color: var(--brown);
+      background-color: var(--blue);
     }
   }
   .kunst{
@@ -175,6 +181,7 @@ body {
   min-height: 100vh;
   .projects-list{
     margin-top: 48px;
+    margin-bottom: 48px;
     .project{
       margin: 5px;
       padding: 5px 20px;
@@ -182,7 +189,7 @@ body {
     }
   }
   .onderwijs{
-    background-color: var(--brown);
+    background-color: var(--blue);
   }
   .kunst{
     background-color: var(--yellow);
@@ -214,7 +221,6 @@ body {
 
 .page{
   min-height: 100vh;
-  padding-bottom: 100px;
   opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
@@ -243,7 +249,7 @@ body {
   justify-content: center;
   .project{
     margin-right: 48px;
-    h2{
+    h3{
       margin: 0;
       font-family: "new-hero", sans-serif;
       font-weight: 500;
@@ -251,7 +257,6 @@ body {
       &:hover{
         font-family:'Koppig1-Regular';
         letter-spacing: 1px;
-        line-height: 1.4;
       }
     }
   }
@@ -313,6 +318,9 @@ img{
       margin-bottom: 0;
       font-size: 18px;
     }
+    p.date{
+      margin-top: 0;
+    }
     h3{
       margin: 0;
     }
@@ -328,7 +336,7 @@ img{
   margin: auto;
   .title{
     font-weight: 400;
-    border-bottom: 2px solid var(--black);
+    border-bottom: 1px solid var(--black);
     font-family:'Koppig1-Regular';
   }
 }
@@ -336,22 +344,22 @@ img{
 .project-grid{
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 60px;
   .project-item{
-    width: 21.5vw;
+    width: 20vw;
     position: relative;
-    margin: 1vw;
+    margin-right: 3.5vw;
     p{
       margin-bottom: 0;
       font-size: 18px;
     }
-    h2{
-      font-family:'Koppig1-Regular';
-      margin: 5px 0;
-      font-weight: 300;
-    }
     h3{
-      margin: 0;
+      // font-family:'Koppig1-Regular';
+      margin: 0 0 10px 0;
+      font-weight: 400;
+      // font-size: 30px;
     }
+   
     img{
       aspect-ratio: 4/3;
       object-fit: cover;
@@ -359,8 +367,32 @@ img{
   }
 }
 
+footer{
+  display: flex;
+  margin: 0px 3vw;
+  padding: 24px 0;
+  border-top: 1px solid black;
+  .column{
+    width: 20vw;
+    margin-right: 2vw;
+  }
+  h3{
+    font-family:'Koppig1-Regular';
+  }
+  p{
+    font-size: 16px;
+  }
+}
 
 @media only screen and (max-width: 900px) {
+  footer{
+    flex-direction: column;
+    .column{
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 24px;
+    }
+  }
   .ant{
     height: 35vh;
     max-width: 100vw;
