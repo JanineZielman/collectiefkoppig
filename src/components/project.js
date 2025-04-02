@@ -14,14 +14,14 @@ const Project = ({page}) => {
           <>
             <div className={styles.images}>
               {page.data.images?.map((item, i) => (
-                <div className={styles.imageWrapper}>
-                  <PrismicNextImage field={item.image} key={`images${i}`} />
+                <div className={styles.imageWrapper}  key={`images${i}`}>
+                  <PrismicNextImage field={item.image} />
                 </div>
               ))}
             </div>
             <div className={styles.captions}>
               {page.data.images?.map((item, i) => (
-                <div className={styles.caption}>
+                <div className={styles.caption} key={`caption${i}`}>
                   {i + 1}. {item.image.alt}
                 </div>
               ))}
