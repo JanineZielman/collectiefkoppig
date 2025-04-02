@@ -40,6 +40,9 @@ export default async function Index() {
       <Layout navigation={navigation.results[0].data}>
         <Loader agenda={agenda}/>
       </Layout>
+      <div className="miertje"><img src="/Gif-Mier-1.gif"/></div>
+      <div className="miertje-2"><img src="/Gif-Mier-1.gif"/></div>
+      <div className="miertje-3"><img src="/Gif-Mier-1.gif"/></div>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import "./global.scss"
+import "./miertje.scss"
 
 export default function RootLayout({
   children,
