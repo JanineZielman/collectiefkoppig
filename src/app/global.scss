@@ -168,7 +168,7 @@ body {
 }
 
 .agenda-page{
-  background-color: var(--yellow2);
+  background-color: var(--pink2);
   min-height: 100vh;
   .agenda{
     margin-top: 0;
@@ -260,6 +260,12 @@ body {
     .project h2:hover{
       color: var(--purple);
     }
+  }
+  &.koppen{
+    background-color: var(--blue2);
+  }
+  &.maak-je-niet-drukwerk{
+    background-color: var(--yellow2);
   }
 }
 
