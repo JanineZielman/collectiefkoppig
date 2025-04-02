@@ -39,10 +39,12 @@ export default async function Index() {
         <div className="projects-list">
           {projects.map((item, i) => {
             return(
-              <div key={`project${i}`} className={`project ${(item.data.category as ItemCategory)?.uid}`}>
-                {/* <div className="image"><PrismicImage field={item.data.image}/></div> */}
+              <div key={`project${i}`} className={`project project-link ${(item.data.category as ItemCategory)?.uid}`}>
                 <Link href={`/projects/${item.uid}`}>
                   <h3>{item.data.title}</h3>
+                  <div className="image-container">
+                    <PrismicImage field={item.data.image} />
+                  </div>
                 </Link>
               </div>
             )

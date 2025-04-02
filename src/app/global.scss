@@ -152,7 +152,7 @@ body {
     margin-top: 14px;
     margin-bottom: 14px;
     display: block;
-    width: 22vw;
+    width: 22.6vw;
     margin-right: 0.5vw;
     margin-left: 0.5vw;
     position: relative;
@@ -170,6 +170,9 @@ body {
 .agenda-page{
   background-color: var(--yellow2);
   min-height: 100vh;
+  .agenda{
+    margin-top: 0;
+  }
 }
 
 .archief{
@@ -197,6 +200,23 @@ body {
   .samenleving{
     background-color: var(--pink );
   }
+}
+
+.image-container {
+  // display: none;
+  visibility: hidden;
+  position: absolute;
+  top: 50%; /* Adjust as needed */
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 10;
+  transition: all 0.4s ease;
+}
+
+.project-link:hover .image-container {
+  // display: block;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 

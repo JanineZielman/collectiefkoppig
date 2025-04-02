@@ -1,11 +1,12 @@
 import { Metadata } from "next";
 
-import { PrismicImage } from "@prismicio/react";
+import { PrismicImage, PrismicRichText } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import Layout from "@/components/layout"
 import Link from "next/link";
+
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -34,33 +35,37 @@ export default async function Index() {
       },
     ]
   });
+
+  type ItemCategory = prismic.ContentRelationshipField<"category"> & { uid?: string };
   
 
   return (
     <div className="agenda-page">
       <Layout navigation={navigation.results[0].data}>
-        <h1 className="page-title">Agenda</h1>
-        <div className="agenda-grid">
+      <h1 className="page-title">Agenda</h1>
+      <div className="agenda">
+        <div className="wrapper">
           {agenda.map((item, i) => {
             return(
-              <div key={`agenda${i}`} className={`agenda-item`}>
-                <Link href={`/agenda/${item.uid}`}>
-                  <div className="image"><PrismicImage field={item.data.image}/></div>
-                  
-                  <p className="date">
-                      {item.data.date
-                        ? new Date(item.data.date).toLocaleDateString("nl-NL", {
-                            day: "numeric",
-                            month: "long",
-                          })
-                        : "Geen datum beschikbaar"}
-                    </p>
-      
-                    <h3>{item.data.title}</h3>
-                </Link>
-              </div>
+              <Link key={`agenda${i}`} 
+                href={`/agenda/${item.uid}`} 
+                className={`agenda-item ${((item.data.category as ItemCategory)?.uid || "")}`}
+              >
+                <div className={`image`}><PrismicImage field={item.data.image}/></div>
+                <p className="date">
+                  {item.data.date
+                    ? new Date(item.data.date).toLocaleDateString("nl-NL", {
+                        day: "numeric",
+                        month: "long",
+                      })
+                    : "Geen datum beschikbaar"}
+                </p>
+                <h3>{item.data.title}</h3>
+                <PrismicRichText field={item.data.info}/>
+              </Link>
             )
           })}
+        </div>
         </div>
       </Layout>
     </div>
