@@ -28,7 +28,16 @@ const Project = ({page}) => {
             </div>
           </>
           :
+          <>
           <div className={styles.single}><PrismicNextImage field={page.data.image}/></div>
+          {page.data.image.alt &&
+            <div className={styles.captions}>
+              <div className={styles.caption}>
+                {page.data.image.alt}
+              </div>
+            </div>
+          }
+          </>
         }
       </div>
       

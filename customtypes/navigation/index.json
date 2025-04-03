@@ -17,6 +17,17 @@
           "repeat": true
         }
       },
+      "talen": {
+        "type": "Link",
+        "config": {
+          "label": "Talen",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": true
+        }
+      },
       "footer": {
         "type": "Group",
         "config": {

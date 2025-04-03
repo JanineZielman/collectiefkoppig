@@ -4,6 +4,7 @@ import { PrismicNextImage } from '@prismicio/next';
 import styles from './Agenda.module.scss';
 import { PrismicRichText } from '@prismicio/react';
 
+
 const Agenda = ({page}) => {
   return (
     <div className={styles.agendaPage}>
@@ -15,7 +16,15 @@ const Agenda = ({page}) => {
           <PrismicRichText field={page.data.description}/>
         </div>
         <div className={styles.info}>
-          <PrismicRichText field={page.data.info}/>
+          {page.data.tijd &&  
+            <p><b>Tijd:</b> {page.data.tijd}</p>
+          }
+          {page.data.programma.length > 0 &&
+            <div className={styles.flex}><b>Programma:</b> <PrismicRichText field={page.data.programma}/></div>
+          }
+          {page.data.waar.length > 0 &&
+              <div className={styles.flex}><b>Waar:</b> <PrismicRichText field={page.data.waar}/></div>
+          }
         </div>
         
       </div>

@@ -33,19 +33,35 @@
           "placeholder": ""
         }
       },
+      "tijd": {
+        "type": "Text",
+        "config": {
+          "label": "Tijd",
+          "placeholder": ""
+        }
+      },
+      "programma": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Programma",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,hyperlink"
+        }
+      },
+      "waar": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Waar",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,hyperlink"
+        }
+      },
       "description": {
         "type": "StructuredText",
         "config": {
           "label": "Description",
-          "placeholder": "",
-          "allowTargetBlank": true,
-          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
-        }
-      },
-      "info": {
-        "type": "StructuredText",
-        "config": {
-          "label": "Info",
           "placeholder": "",
           "allowTargetBlank": true,
           "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"

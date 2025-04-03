@@ -13,3 +13,13 @@
     font-size: 30px;
   }
 }
+
+.info{
+  font-size: 24px;
+  p{
+    margin: 0;
+  }
+  .flex *{
+    display: inline;
+  }
+}
