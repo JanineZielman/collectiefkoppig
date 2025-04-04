@@ -12,7 +12,7 @@ const Home = ({agenda}) => {
       <div className="agenda">
         <h2>Agenda</h2>
         <div className="wrapper">
-          {agenda.map((item, i) => {
+          {agenda.slice(0,4).map((item, i) => {
             return(
               <Link key={`agenda${i}`} href={`/agenda/${item.uid}`} className={`agenda-item ${(item.data.category)?.uid}`}>
                 <p className="date">

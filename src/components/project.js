@@ -12,20 +12,26 @@ const Project = ({page}) => {
       <div className={styles.hero}>    
         {page.data.images?.length > 0 ?
           <>
-            <div className={styles.images}>
+            <div className={`${styles.images} images-${page.data.images?.length}`}>
               {page.data.images?.map((item, i) => (
-                <div className={styles.imageWrapper}  key={`images${i}`}>
+                <div className={`${styles.imageWrapper} image-wrapper`}  key={`images${i}`}>
                   <PrismicNextImage field={item.image} />
                 </div>
               ))}
             </div>
-            <div className={styles.captions}>
-              {page.data.images?.map((item, i) => (
-                <div className={styles.caption} key={`caption${i}`}>
-                  {i + 1}. {item.image.alt}
-                </div>
-              ))}
-            </div>
+            {page.data.images[0].image.alt &&
+              <div className={styles.captions}>
+                {page.data.images?.map((item, i) => (
+                  <>
+                  {item.image.alt &&
+                  <div className={styles.caption} key={`caption${i}`}>
+                    {i + 1}. {item.image.alt}
+                  </div>
+                  }
+                  </>
+                ))}
+              </div>
+            }
           </>
           :
           <>
