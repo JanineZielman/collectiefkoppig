@@ -4,7 +4,13 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type AgendaItemDocumentDataSlicesSlice = QuoteSlice | TextSlice | ImageSlice;
+type AgendaItemDocumentDataSlicesSlice =
+  | ImagesSlice
+  | EmbedSlice
+  | ImageSliderSlice
+  | QuoteSlice
+  | TextSlice
+  | ImageSlice;
 
 /**
  * Content for Agenda Item documents
@@ -242,6 +248,9 @@ export type NavigationDocument<Lang extends string = string> =
   >;
 
 type PageDocumentDataSlicesSlice =
+  | ImageSliderSlice
+  | EmbedSlice
+  | ImagesSlice
   | KoppenSlice
   | QuoteSlice
   | ImageSlice
@@ -332,7 +341,13 @@ export interface ProjectDocumentDataImagesItem {
   image: prismic.ImageField<never>;
 }
 
-type ProjectDocumentDataSlicesSlice = QuoteSlice | TextSlice | ImageSlice;
+type ProjectDocumentDataSlicesSlice =
+  | ImageSliderSlice
+  | EmbedSlice
+  | ImagesSlice
+  | QuoteSlice
+  | TextSlice
+  | ImageSlice;
 
 /**
  * Content for Project documents
@@ -459,6 +474,58 @@ export type AllDocumentTypes =
   | ProjectDocument;
 
 /**
+ * Primary content in *Embed → Default → Primary*
+ */
+export interface EmbedSliceDefaultPrimary {
+  /**
+   * Embed field in *Embed → Default → Primary*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: embed.default.primary.embed
+   * - **Documentation**: https://prismic.io/docs/field#embed
+   */
+  embed: prismic.EmbedField;
+
+  /**
+   * Caption field in *Embed → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: embed.default.primary.caption
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  caption: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Embed Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type EmbedSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<EmbedSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Embed*
+ */
+type EmbedSliceVariation = EmbedSliceDefault;
+
+/**
+ * Embed Shared Slice
+ *
+ * - **API ID**: `embed`
+ * - **Description**: Embed
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type EmbedSlice = prismic.SharedSlice<"embed", EmbedSliceVariation>;
+
+/**
  * Primary content in *Image → Default → Primary*
  */
 export interface ImageSliceDefaultPrimary {
@@ -509,6 +576,135 @@ type ImageSliceVariation = ImageSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slice
  */
 export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
+
+/**
+ * Item in *ImageSlider → Default → Primary → Images*
+ */
+export interface ImageSliderSliceDefaultPrimaryImagesItem {
+  /**
+   * Image field in *ImageSlider → Default → Primary → Images*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_slider.default.primary.images[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *ImageSlider → Default → Primary*
+ */
+export interface ImageSliderSliceDefaultPrimary {
+  /**
+   * Images field in *ImageSlider → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_slider.default.primary.images[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  images: prismic.GroupField<
+    Simplify<ImageSliderSliceDefaultPrimaryImagesItem>
+  >;
+}
+
+/**
+ * Default variation for ImageSlider Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImageSliderSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ImageSliderSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ImageSlider*
+ */
+type ImageSliderSliceVariation = ImageSliderSliceDefault;
+
+/**
+ * ImageSlider Shared Slice
+ *
+ * - **API ID**: `image_slider`
+ * - **Description**: ImageSlider
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImageSliderSlice = prismic.SharedSlice<
+  "image_slider",
+  ImageSliderSliceVariation
+>;
+
+/**
+ * Item in *Images → Default → Primary → Images*
+ */
+export interface ImagesSliceDefaultPrimaryImagesItem {
+  /**
+   * Image field in *Images → Default → Primary → Images*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: images.default.primary.images[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *Images → Default → Primary*
+ */
+export interface ImagesSliceDefaultPrimary {
+  /**
+   * Images field in *Images → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: images.default.primary.images[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  images: prismic.GroupField<Simplify<ImagesSliceDefaultPrimaryImagesItem>>;
+
+  /**
+   * Caption field in *Images → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: images.default.primary.caption
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  caption: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Images Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImagesSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ImagesSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Images*
+ */
+type ImagesSliceVariation = ImagesSliceDefault;
+
+/**
+ * Images Shared Slice
+ *
+ * - **API ID**: `images`
+ * - **Description**: Images
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImagesSlice = prismic.SharedSlice<"images", ImagesSliceVariation>;
 
 /**
  * Item in *Koppen → Default → Primary → Koppen*
@@ -590,6 +786,16 @@ export interface QuoteSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   quote: prismic.RichTextField;
+
+  /**
+   * Source field in *Quote → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: quote.default.primary.source
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  source: prismic.RichTextField;
 }
 
 /**
@@ -696,10 +902,24 @@ declare module "@prismicio/client" {
       ProjectDocumentDataImagesItem,
       ProjectDocumentDataSlicesSlice,
       AllDocumentTypes,
+      EmbedSlice,
+      EmbedSliceDefaultPrimary,
+      EmbedSliceVariation,
+      EmbedSliceDefault,
       ImageSlice,
       ImageSliceDefaultPrimary,
       ImageSliceVariation,
       ImageSliceDefault,
+      ImageSliderSlice,
+      ImageSliderSliceDefaultPrimaryImagesItem,
+      ImageSliderSliceDefaultPrimary,
+      ImageSliderSliceVariation,
+      ImageSliderSliceDefault,
+      ImagesSlice,
+      ImagesSliceDefaultPrimaryImagesItem,
+      ImagesSliceDefaultPrimary,
+      ImagesSliceVariation,
+      ImagesSliceDefault,
       KoppenSlice,
       KoppenSliceDefaultPrimaryKoppenItem,
       KoppenSliceDefaultPrimary,

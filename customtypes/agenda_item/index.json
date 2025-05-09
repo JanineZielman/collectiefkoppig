@@ -91,6 +91,15 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "images": {
+              "type": "SharedSlice"
+            },
+            "embed": {
+              "type": "SharedSlice"
+            },
+            "image_slider": {
+              "type": "SharedSlice"
+            },
             "quote": {
               "type": "SharedSlice"
             },

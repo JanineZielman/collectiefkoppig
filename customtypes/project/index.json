@@ -71,6 +71,15 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "image_slider": {
+              "type": "SharedSlice"
+            },
+            "embed": {
+              "type": "SharedSlice"
+            },
+            "images": {
+              "type": "SharedSlice"
+            },
             "quote": {
               "type": "SharedSlice"
             },
