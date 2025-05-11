@@ -266,6 +266,7 @@ body {
 .filter-buttons{
   justify-content: center;
   display: flex;
+  flex-wrap: wrap;
   font-size: 24px;
   text-transform: capitalize;
   div {
