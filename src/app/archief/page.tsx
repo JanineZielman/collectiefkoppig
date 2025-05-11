@@ -4,9 +4,9 @@ import { PrismicImage, SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
-import { components } from "@/slices";
 import Layout from "@/components/layout"
 import Link from "next/link";
+import ProjectList from "@/components/ProjectList";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,20 +36,7 @@ export default async function Index() {
     <div className="archief">
       <Layout navigation={navigation.results[0].data}>
         <h1 className="page-title">Archief</h1>
-        <div className="projects-list">
-          {projects.map((item, i) => {
-            return(
-              <div key={`project${i}`} className={`project project-link ${(item.data.category as ItemCategory)?.uid}`}>
-                <Link href={`/projects/${item.uid}`}>
-                  <h3>{item.data.title}</h3>
-                  <div className="image-container">
-                    <PrismicImage field={item.data.image} />
-                  </div>
-                </Link>
-              </div>
-            )
-          })}
-        </div>
+        <ProjectList projects={projects} />
       </Layout>
     </div>
   )
