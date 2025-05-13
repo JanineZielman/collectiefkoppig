@@ -18,6 +18,9 @@ const Quote = ({ slice }: QuoteProps): JSX.Element => {
       className={styles.quote}
     >
       <PrismicRichText field={slice.primary.quote} />
+      <div className={styles.caption}>
+        <PrismicRichText field={slice.primary.source} />
+      </div>
     </section>
   );
 };
