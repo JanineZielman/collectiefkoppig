@@ -23,6 +23,11 @@
   box-sizing: border-box;
 }
 
+html, body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -64,9 +69,8 @@ body {
 
 .page-title{
   font-weight: 300;
-  margin-top: 0px;
+  margin-top: 5px;
   text-align: center;
-  font-size: 42px;
   margin-bottom: 24px;
   font-weight: 400;
   font-family: "Koppig1-Regular";
@@ -349,10 +353,12 @@ img{
 }
 
 .share{
-  margin-right: 2vw;
+  margin-right: 0;
+  margin-left: auto;
   display: flex;
   justify-content: end;
   margin-top: 48px;
+  max-width: 40vw;
   &:hover {
     animation: shake 0.75s; 
     animation-iteration-count: infinite; 
@@ -426,12 +432,18 @@ img{
 
 .prefooter{
   display: flex;
-  justify-content: start;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
   margin: 0px 3vw;
   padding: 24px 0;
   margin-top: 48px;
+  .categories{
+    display: flex;
+    height: fit-content;
+  }
   a{
-    margin-right: 24px;
+    margin-right: 14px;
     padding: 2px 10px;
     font-family:'Koppig1-Regular';
   }
@@ -579,9 +591,6 @@ footer{
     .agenda-item{
       width: 100%;
     }
-  }
-  .page-title{
-    font-size: 36px;
   }
   .image-text{
     flex-direction: column;
