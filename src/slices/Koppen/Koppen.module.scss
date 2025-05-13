@@ -1,18 +1,19 @@
 .koppen{
   display: flex;
-  flex-wrap: wrap;
+  width: 100%;
   padding: 0 3vw;
   .kop{
-    width: 20vw;
-    margin-right: 3.5vw;
+    width: 90%;
+    margin: auto;
     margin-top: 24px;
     margin-bottom: 24px;
+    border-bottom: 1px solid black;
     h3{
       width: 100%;
-      border-top: 1px solid black;
       padding-top: 14px;
       font-family: Koppig1-Regular;
       margin-top: 0;
+      text-align: center;
     }
     p{
       font-size: 16px;
@@ -23,10 +24,14 @@
 .duotone{
   position: relative;
   margin-bottom: 10px;
+  border-radius: 50%;
+  width: 60%;
+  margin: auto;
   img{
     filter: grayscale(1) contrast(1);
     margin-bottom: -6px;
     mix-blend-mode: multiply;
+    border-radius: 50%;
   }
 }
 
@@ -40,6 +45,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  border-radius: 50%;
 }
 
 .duotone:after {
@@ -52,14 +58,5 @@
   position: absolute;
   top: 0;
   left: 0;
-}
-
-@media only screen and (max-width: 900px) {
-  .koppen{
-    flex-direction: column;
-    .kop{
-      width: 100%;
-      margin-right: 3.5vw;
-    }
-  }
+  border-radius: 50%;
 }
