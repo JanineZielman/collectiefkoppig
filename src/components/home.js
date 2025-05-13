@@ -1,7 +1,6 @@
 'use client'
 import Link from "next/link";
 import ZoomableSVG from "@/components/ZoomableSVG"
-import * as prismic from "@prismicio/client";
 import { PrismicRichText } from "@prismicio/react";
 
 
@@ -10,7 +9,7 @@ const Home = ({agenda}) => {
     <>
       <ZoomableSVG/>
       <div className="agenda">
-        <h2>Agenda</h2>
+        <a href="/agenda"><h2>Agenda</h2></a>
         <div className="wrapper">
           {agenda.slice(0,4).map((item, i) => {
             return(
@@ -26,13 +25,13 @@ const Home = ({agenda}) => {
 
                 <h3>{item.data.title}</h3>
                 {item.data.tijd &&  
-                  <p><b>Tijd:</b> {item.data.tijd}</p>
+                  <p><b>Tijd</b> {item.data.tijd}</p>
                 }
                 {item.data.programma.length > 0 &&
-                  <div className="flex"><b>Programma:</b> <PrismicRichText field={item.data.programma}/></div>
+                  <div className="flex"><b>Programma</b> <PrismicRichText field={item.data.programma}/></div>
                 }
                 {item.data.waar.length > 0 &&
-                   <div className="flex"><b>Waar:</b> <PrismicRichText field={item.data.waar}/></div>
+                   <div className="flex"><b>Waar</b> <PrismicRichText field={item.data.waar}/></div>
                 }
               </Link>
             )

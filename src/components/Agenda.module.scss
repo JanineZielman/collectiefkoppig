@@ -23,3 +23,17 @@
     display: inline;
   }
 }
+
+.agendaMasonry{
+  display: flex;
+  width: 94%;
+  margin: auto;
+}
+
+.agendaColumn{
+  padding: 0 1%;
+  a{
+    padding-bottom: 24px;
+    display: block;
+  }
+}

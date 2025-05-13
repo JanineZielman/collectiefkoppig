@@ -17,13 +17,13 @@ const Agenda = ({page}) => {
         </div>
         <div className={styles.info}>
           {page.data.tijd &&  
-            <p><b>Tijd:</b> {page.data.tijd}</p>
+            <p><b>Tijd</b> {page.data.tijd}</p>
           }
           {page.data.programma.length > 0 &&
-            <div className={styles.flex}><b>Programma:</b> <PrismicRichText field={page.data.programma}/></div>
+            <div className={styles.flex}><b>Programma</b> <PrismicRichText field={page.data.programma}/></div>
           }
           {page.data.waar.length > 0 &&
-              <div className={styles.flex}><b>Waar:</b> <PrismicRichText field={page.data.waar}/></div>
+              <div className={styles.flex}><b>Waar</b> <PrismicRichText field={page.data.waar}/></div>
           }
         </div>
         

@@ -1,13 +1,8 @@
 import { Metadata } from "next";
-
-import { PrismicImage, PrismicRichText } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
-
 import { createClient } from "@/prismicio";
 import Layout from "@/components/layout"
-import Link from "next/link";
-
-
+import AgendaMasonry from "@/components/agendaMasonry"
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
@@ -36,45 +31,11 @@ export default async function Index() {
     ]
   });
 
-  type ItemCategory = prismic.ContentRelationshipField<"category"> & { uid?: string };
-  
-
   return (
     <div className="agenda-page">
       <Layout navigation={navigation.results[0].data}>
-      <h1 className="page-title">Agenda</h1>
-      <div className="agenda">
-        <div className="wrapper">
-          {agenda.map((item, i) => {
-            return(
-              <Link key={`agenda${i}`} 
-                href={`/agenda/${item.uid}`} 
-                className={`agenda-item ${((item.data.category as ItemCategory)?.uid || "")}`}
-              >
-                <div className={`image`}><PrismicImage field={item.data.image}/></div>
-                <p className="date">
-                  {item.data.date
-                    ? new Date(item.data.date).toLocaleDateString("nl-NL", {
-                        day: "numeric",
-                        month: "long",
-                      })
-                    : "Geen datum beschikbaar"}
-                </p>
-                <h3>{item.data.title}</h3>
-                {item.data.tijd &&  
-                  <p><b>Tijd:</b> {item.data.tijd}</p>
-                }
-                 {item.data.programma.length > 0 &&
-                  <div className="flex"><b>Programma:</b> <PrismicRichText field={item.data.programma}/></div>
-                }
-                {item.data.waar.length > 0 &&
-                   <div className="flex"><b>Waar:</b> <PrismicRichText field={item.data.waar}/></div>
-                }
-              </Link>
-            )
-          })}
-        </div>
-        </div>
+        <h1 className="page-title">Agenda</h1>
+        <AgendaMasonry agenda={agenda}/>
       </Layout>
     </div>
   )
