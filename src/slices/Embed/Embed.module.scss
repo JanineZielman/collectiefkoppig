@@ -1,0 +1,17 @@
+.embedWrapper{
+  width: 95%;
+  max-width: 900px;
+  margin: auto;
+  padding-bottom: 24px;
+  iframe{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+  .caption{
+    p{
+      font-size: 18px;
+      margin-top: 14px;
+    }
+  }
+}

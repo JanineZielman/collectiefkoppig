@@ -1,0 +1,46 @@
+.imagesWrapper{
+  max-width: 95%;
+  margin: auto;
+  position: relative;
+  .images{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .image{
+      flex-grow: 1;
+      flex-shrink: 1;
+      &:nth-child(even){
+        margin-bottom: -48px;
+        img{
+          object-position: left;
+        }
+      }
+      &:nth-child(odd){
+        margin-bottom: 48px;
+        img{
+          object-position: right;
+        }
+      }
+      margin: 0 14px;
+    }
+    img{
+      max-height: 60vh;
+      // width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+  .caption{
+    margin: 14px auto 24px auto;
+    max-width: 900px;
+    padding: 0 14px;
+    p{
+      font-size: 18px;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+}
