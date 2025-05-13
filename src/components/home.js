@@ -9,7 +9,7 @@ const Home = ({agenda}) => {
     <>
       <ZoomableSVG/>
       <div className="agenda">
-        <a href="/agenda"><h2>Agenda</h2></a>
+        <Link href="/agenda"><h2>Agenda</h2></Link>
         <div className="wrapper">
           {agenda.slice(0,4).map((item, i) => {
             return(
