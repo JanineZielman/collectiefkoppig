@@ -5,6 +5,7 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 type AgendaItemDocumentDataSlicesSlice =
+  | SmallTextSlice
   | ImagesSlice
   | EmbedSlice
   | ImageSliderSlice
@@ -229,6 +230,19 @@ interface NavigationDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   footer: prismic.GroupField<Simplify<NavigationDocumentDataFooterItem>>;
+
+  /**
+   * Categories field in *Navigation*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navigation.categories
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  categories: prismic.Repeatable<
+    prismic.LinkField<string, string, unknown, prismic.FieldState, never>
+  >;
 }
 
 /**
@@ -248,6 +262,7 @@ export type NavigationDocument<Lang extends string = string> =
   >;
 
 type PageDocumentDataSlicesSlice =
+  | SmallTextSlice
   | ImageSliderSlice
   | EmbedSlice
   | ImagesSlice
@@ -342,6 +357,7 @@ export interface ProjectDocumentDataImagesItem {
 }
 
 type ProjectDocumentDataSlicesSlice =
+  | SmallTextSlice
   | ImageSliderSlice
   | EmbedSlice
   | ImagesSlice
@@ -826,6 +842,51 @@ type QuoteSliceVariation = QuoteSliceDefault;
 export type QuoteSlice = prismic.SharedSlice<"quote", QuoteSliceVariation>;
 
 /**
+ * Primary content in *SmallText → Default → Primary*
+ */
+export interface SmallTextSliceDefaultPrimary {
+  /**
+   * Text field in *SmallText → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: small_text.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for SmallText Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SmallTextSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<SmallTextSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *SmallText*
+ */
+type SmallTextSliceVariation = SmallTextSliceDefault;
+
+/**
+ * SmallText Shared Slice
+ *
+ * - **API ID**: `small_text`
+ * - **Description**: SmallText
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SmallTextSlice = prismic.SharedSlice<
+  "small_text",
+  SmallTextSliceVariation
+>;
+
+/**
  * Primary content in *Text → Default → Primary*
  */
 export interface TextSliceDefaultPrimary {
@@ -929,6 +990,10 @@ declare module "@prismicio/client" {
       QuoteSliceDefaultPrimary,
       QuoteSliceVariation,
       QuoteSliceDefault,
+      SmallTextSlice,
+      SmallTextSliceDefaultPrimary,
+      SmallTextSliceVariation,
+      SmallTextSliceDefault,
       TextSlice,
       TextSliceDefaultPrimary,
       TextSliceVariation,

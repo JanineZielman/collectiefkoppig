@@ -91,6 +91,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "small_text": {
+              "type": "SharedSlice"
+            },
             "images": {
               "type": "SharedSlice"
             },

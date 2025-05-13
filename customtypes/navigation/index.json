@@ -45,6 +45,17 @@
             }
           }
         }
+      },
+      "categories": {
+        "type": "Link",
+        "config": {
+          "label": "Categories",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": true
+        }
       }
     }
   }

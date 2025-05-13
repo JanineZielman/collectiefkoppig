@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const Layout = ({ navigation, children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  console.log(navigation)
   return (
     <div className={styles.layout}>
       <Link href="/" className={styles.logo}>
@@ -26,6 +26,15 @@ const Layout = ({ navigation, children }) => {
         ))}
       </div>
       {children}
+      <div className='prefooter'>
+        {navigation.categories.map((item, i) => {
+          return(
+            <PrismicLink key={`link${i}`} field={item} className={item.text.toLowerCase()}>
+              <h3>{item.text}</h3>
+            </PrismicLink>
+          )
+        })}
+      </div>
       <footer>
         {navigation.footer.map((item, i) => (
           <div className='column' key={`column${i}`}>

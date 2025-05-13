@@ -424,6 +424,27 @@ img{
   }
 }
 
+.prefooter{
+  display: flex;
+  justify-content: start;
+  margin: 0px 3vw;
+  padding: 24px 0;
+  margin-top: 48px;
+  a{
+    margin-right: 24px;
+    padding: 2px 10px;
+    font-family:'Koppig1-Regular';
+  }
+  a.onderwijs{
+    background-color: var(--blue);
+  }
+  a.kunst{
+    background-color: var(--yellow);
+  }
+  a.samenleving{
+    background-color: var(--pink);
+  }
+}
 
 footer{
   display: flex;

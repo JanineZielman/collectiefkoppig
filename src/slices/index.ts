@@ -9,5 +9,6 @@ export const components = {
   images: dynamic(() => import("./Images")),
   koppen: dynamic(() => import("./Koppen")),
   quote: dynamic(() => import("./Quote")),
+  small_text: dynamic(() => import("./SmallText")),
   text: dynamic(() => import("./Text")),
 };
