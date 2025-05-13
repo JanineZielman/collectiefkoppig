@@ -156,13 +156,13 @@ export default function ZoomableSVG() {
             <path d="m372.77,516.47v6.19c-2.65-2.24-6.66-3.81-11.02-3.81-4.62,0-7.21,1.97-7.21,4.96,0,3.26,3.2,4.49,8.16,5.92,5.64,1.63,12.04,3.47,12.04,10.88,0,6.73-5.24,11.08-13.74,11.08-4.76,0-9.31-1.36-12.71-4.08v-6.73c2.86,2.92,7.21,5.24,12.51,5.24,4.96,0,7.82-2.18,7.82-5.44,0-3.54-3.47-4.69-8.77-6.32-6.05-1.84-11.42-3.81-11.42-10.27s5.1-10.81,13.26-10.81c4.22,0,8.5,1.22,11.08,3.2Z" />
           </g>
         </g>
-        <ellipse cx="322.17" cy="500.12" rx="169.87" ry="113.21" onClick={(e) => handleZoom(e, "/onderwijs", 322.17, 500.12, 500.12, 113.21)} style={{ cursor: "pointer" }} />
-        {/* <ellipse cx="1037" cy="593.93" rx="121.2" ry="79.84" onClick={(e) => handleZoom(e, "/geef", 1037, 593.93, 121.2, 79.84)} style={{ cursor: "pointer" }} /> */}
-        <ellipse cx="110.13" cy="229.72" rx="110.13" ry="78.76" onClick={(e) => handleZoom(e, "/maak-je-niet-drukwerk", 110.13, 229.72, 110.13, 78.76)} style={{ cursor: "pointer" }} />
-        <ellipse cx="196.33" cy="60.05" rx="69.22" ry="56.85" onClick={(e) => handleZoom(e, "/koppen", 196.33, 60.05, 69.22, 56.85)} style={{ cursor: "pointer" }} />
-        <ellipse cx="549.51" cy="339.51" rx="69.22" ry="56.85" onClick={(e) => handleZoom(e, "/archief", 549.51, 339.51, 69.22, 56.85)} style={{ cursor: "pointer" }} />
-        <ellipse cx="675.09" cy="104.98" rx="157.52" ry="104.98" onClick={(e) => handleZoom(e, "/kunst", 675.09, 104.98, 157.52, 104.98)} style={{ cursor: "pointer" }} />
-        <ellipse cx="962.61" cy="334.1" rx="189.51" ry="127.76" onClick={(e) => handleZoom(e, "/samenleving", 962.61, 334.1, 189.51, 127.76)} style={{ cursor: "pointer" }} />
+        <ellipse cx="322.17" cy="500.12" rx="169.87" ry="113.21" onClick={(e) => handleZoom(e, "/onderwijs", 322.17, 500.12, 500.12, 113.21)}  />
+        {/* <ellipse cx="1037" cy="593.93" rx="121.2" ry="79.84" onClick={(e) => handleZoom(e, "/geef", 1037, 593.93, 121.2, 79.84)}  /> */}
+        <ellipse cx="110.13" cy="229.72" rx="110.13" ry="78.76" onClick={(e) => handleZoom(e, "/maak-je-niet-drukwerk", 110.13, 229.72, 110.13, 78.76)}  />
+        <ellipse cx="196.33" cy="60.05" rx="69.22" ry="56.85" onClick={(e) => handleZoom(e, "/koppen", 196.33, 60.05, 69.22, 56.85)}  />
+        <ellipse cx="549.51" cy="339.51" rx="69.22" ry="56.85" onClick={(e) => handleZoom(e, "/archief", 549.51, 339.51, 69.22, 56.85)}  />
+        <ellipse cx="675.09" cy="104.98" rx="157.52" ry="104.98" onClick={(e) => handleZoom(e, "/kunst", 675.09, 104.98, 157.52, 104.98)}  />
+        <ellipse cx="962.61" cy="334.1" rx="189.51" ry="127.76" onClick={(e) => handleZoom(e, "/samenleving", 962.61, 334.1, 189.51, 127.76)}  />
       </g>
     </svg>
   );

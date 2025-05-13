@@ -7,6 +7,7 @@
   width: 40px;
   transform: rotate(0deg);
   transition: all 0.4s ease;
+  cursor: url(/1x/cursor2.png),  auto;
 }
 
 .menu.open img{
@@ -43,7 +44,7 @@
   top: 14px;
   right: -400px;
   /* max-width: 175px; */
-  background-color: var(--grey);
+  background-color: white;
   padding: 48px 24px 24px 24px;
   z-index: 8;
 }

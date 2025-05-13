@@ -26,6 +26,7 @@
 html, body{
   width: 100%;
   overflow-x: hidden;
+  cursor: url(/1x/cursor.png),  auto;
 }
 
 body {
@@ -39,6 +40,9 @@ body {
  a{
   text-decoration: none;
   color: inherit;
+  &:hover{
+    cursor: url(/1x/cursor2.png),  auto;
+  }
  }
 
  p{
@@ -126,6 +130,7 @@ body {
   z-index: 2;
   circle, ellipse{
     opacity: 0;
+    cursor: url(/1x/cursor2.png),  auto;
   }
 }
 
@@ -270,7 +275,7 @@ body {
   text-transform: capitalize;
   div {
     margin: 0 14px;
-    cursor: pointer;
+    cursor: url(/1x/cursor2.png),  auto;
     &.active{
       border-bottom: 1px solid;
     }
@@ -661,6 +666,6 @@ footer{
   }
   .downloadButton{
     margin-top: 24px;
-    cursor: pointer;
+    cursor: url(/1x/cursor2.png),  auto;
   }
 }
