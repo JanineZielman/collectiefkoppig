@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 export default function DrawingCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [history, setHistory] = useState<string[]>([]); // for undo
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,6 +18,7 @@ export default function DrawingCanvas() {
     ctx.strokeStyle = '#000';
 
     const startDrawing = (e: MouseEvent) => {
+      saveHistory(); // Save before drawing
       ctx.beginPath();
       ctx.moveTo(e.offsetX, e.offsetY);
       setIsDrawing(true);
@@ -46,6 +48,30 @@ export default function DrawingCanvas() {
     };
   }, [isDrawing]);
 
+  const saveHistory = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const data = canvas.toDataURL();
+    setHistory((prev) => [...prev.slice(-19), data]); // Keep last 20
+  };
+
+  const handleUndo = () => {
+    const canvas = canvasRef.current;
+    if (!canvas || history.length === 0) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const lastImage = history[history.length - 1];
+    const img = new Image();
+    img.src = lastImage;
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+    };
+
+    setHistory((prev) => prev.slice(0, -1));
+  };
+
   const downloadImage = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -57,18 +83,20 @@ export default function DrawingCanvas() {
   };
 
   return (
-    <div className="drawing">
+    <div className="drawing space-y-4">
       <canvas
         ref={canvasRef}
         width={600}
         height={600}
         className="border border-gray-400 rounded"
       />
-      <div
-        onClick={downloadImage}
-        className="downloadButton"
-      >
-        Download
+      <div className="flex">
+        <div onClick={handleUndo} className="px-4 py-2 bg-yellow-500 text-white rounded">
+          Undo
+        </div>
+        <div onClick={downloadImage} className="px-4 py-2 bg-green-500 text-white rounded">
+          Download
+        </div>
       </div>
     </div>
   );

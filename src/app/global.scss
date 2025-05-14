@@ -137,6 +137,13 @@ body {
   }
 }
 
+.flex{
+  display: flex;
+  div{
+    margin: 14px 14px;
+  }
+}
+
 .button{
   margin-top: 24px;
   display: block;
