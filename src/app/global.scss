@@ -479,10 +479,20 @@ footer{
   padding: 24px 0;
   border-top: 1px solid black;
   .column{
-    width: 20%;
+    width: calc(100% - 150px / 4);
+    max-width: 300px;
     margin-right: 2%;
     &:last-child{
       margin-right: 0;
+      margin-left: auto;
+      width: 150px;
+      img{
+        width: auto;
+        height: 150px;
+        margin-right: auto;
+        margin-left: 0;
+        display: block;
+      }
     }
   }
   h3{
