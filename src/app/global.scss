@@ -380,6 +380,7 @@ img{
   position: absolute;
   right: 3vw;
   bottom: 20vh;
+  z-index: 2;
   &:hover{
     animation: shake 0.75s; 
     animation-iteration-count: infinite; 
@@ -393,6 +394,7 @@ img{
   justify-content: end;
   margin-top: 48px;
   max-width: 40vw;
+  cursor: url(/1x/cursor2.png),  auto;
   &:hover {
     animation: shake 0.75s; 
     animation-iteration-count: infinite; 
