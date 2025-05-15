@@ -14,24 +14,25 @@ const Project = ({page}) => {
           <>
             <div className={`${styles.images} images-${page.data.images?.length}`}>
               {page.data.images?.map((item, i) => (
-                <div className={`${styles.imageWrapper} image-wrapper`}  key={`images${i}`}>
+                <div className={`${styles.imageWrapper} image-wrapper`} key={`images${i}`}>
                   <PrismicNextImage field={item.image} />
                 </div>
               ))}
             </div>
-            {page.data.images[0].image.alt &&
+            {page.data.images[0]?.image?.alt && (
               <div className={styles.captions}>
-                {page.data.images?.map((item, i) => (
-                  <>
-                  {item.image.alt &&
-                  <div className={styles.caption} key={`caption${i}`}>
-                    {i + 1}. {item.image.alt}
-                  </div>
-                  }
-                  </>
-                ))}
+                {[0, 2, 1]
+                  .filter(index => page.data.images[index]?.image?.alt) // Only include valid items with alt
+                  .map((index, displayIndex) => {
+                    const item = page.data.images[index];
+                    return (
+                      <div className={styles.caption} key={`caption${index}`}>
+                        {displayIndex + 1}. {item.image.alt}
+                      </div>
+                    );
+                  })}
               </div>
-            }
+            )}
           </>
           :
           <>

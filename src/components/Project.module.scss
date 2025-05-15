@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   .single {
-    width: 100%;
+    width: 90%;
     height: 90%;
     margin-top: -2%;
     img{
@@ -30,7 +30,7 @@
     position: relative;
     width: 100%;
     .imageWrapper{
-      width: 100%;
+      width: 90%;
       height: auto;
       // max-height: 70svh;
       object-fit: contain;
@@ -57,10 +57,13 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .introText{
     p{
       font-size: 24px;
     }
+  }
+  .hero{
+    height: 55vh;
   }
 }
