@@ -57,7 +57,7 @@ export default function ZoomableSVG() {
     }, 500);
   };
   return (
-    <>
+    <div className="ant-wrapper">
       <svg className="ant" id="Layer_2" data-name="Layer 2" overflow="visible" xmlns="http://www.w3.org/2000/svg" viewBox={viewBox}  style={{ transition: "all 1s ease-in-out" }}>
         <g id="Layer_1-2" data-name="Layer 1">
         <g>
@@ -466,6 +466,6 @@ export default function ZoomableSVG() {
           <img src="/SVG/ondersteun.svg"/>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
