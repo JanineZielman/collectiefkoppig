@@ -9,17 +9,18 @@ const NewsletterSignup = () => {
     setStatus('loading');
 
     try {
-      const response = await fetch('https://emailoctopus.com/api/1.6/lists/aeec21a4-2b45-11f0-bb95-6f11fbd0eac1/members', {
-        method: 'POST',
+      const response = await fetch("https://api.emailoctopus.com/lists/aeec21a4-2b45-11f0-bb95-6f11fbd0eac1/contacts", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
+          "Authorization": `Bearer eo_fe72670eae0f6cbda06b4935d8e7f4d6c2ee65ec4e996bafdb2f600abd1e3c0a`,
         },
         body: JSON.stringify({
-          api_key: 'eo_fe72670eae0f6cbda06b4935d8e7f4d6c2ee65ec4e996bafdb2f600abd1e3c0a',
-          email_address: email,
-          status: 'SUBSCRIBED'
-        })
-      });
+          EmailAddress: email,
+          tags: ["newsletter"],
+        }),
+      })
+  
 
       const data = await response.json();
 
