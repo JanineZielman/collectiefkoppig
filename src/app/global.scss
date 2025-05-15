@@ -619,6 +619,34 @@ footer{
   }
 }
 
+.newsletter-form{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  button.button{
+    background-color: transparent;
+    cursor: url(/1x/cursor2.png),  auto;
+    margin: 0;
+    font-size: 18px;
+    height: 35px;
+    width: 100px;
+  }
+  input{
+    background-color: transparent;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 0;
+    height: 35px;
+    border: none;
+    border-bottom: 1px solid black;
+    width: calc(100% - 110px)
+  }
+}
+
+*:focus {
+  outline: none;
+}
+
 @media only screen and (max-width: 900px) {
   footer{
     flex-direction: column;

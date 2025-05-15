@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PrismicLink, PrismicRichText } from '@prismicio/react';
 import styles from './Layout.module.scss';
 import Link from 'next/link';
+import Newsletter from "@/components/newsletter"
 
 
 const Layout = ({ navigation, children }) => {
@@ -64,11 +65,17 @@ const Layout = ({ navigation, children }) => {
         </div>
       </div>
       <footer>
-        {navigation.footer.map((item, i) => (
+        {navigation.footer.map((item, i) => {
+          console.log(item.column[1]?.text)
+          return(
           <div className='column' key={`column${i}`}>
             <PrismicRichText field={item.column} />
+            {item.column[1]?.text == 'nieuwsbrief' &&
+              <Newsletter/>
+            }
           </div>
-        ))}
+          )
+        })}
       </footer>
     </div>
   );
