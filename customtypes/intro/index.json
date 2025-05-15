@@ -1,0 +1,49 @@
+{
+  "format": "custom",
+  "id": "intro",
+  "label": "Intro",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "videos": {
+        "type": "Group",
+        "config": {
+          "label": "Videos",
+          "repeat": true,
+          "fields": {
+            "video": {
+              "type": "Link",
+              "config": {
+                "label": "Video",
+                "placeholder": "",
+                "select": "media",
+                "allowText": true
+              }
+            }
+          }
+        }
+      },
+      "mondjes": {
+        "type": "Group",
+        "config": {
+          "label": "Mondjes",
+          "repeat": true,
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {
+                  "width": 1080,
+                  "height": 1080
+                },
+                "thumbnails": []
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

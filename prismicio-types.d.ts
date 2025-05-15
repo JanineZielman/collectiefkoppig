@@ -176,6 +176,75 @@ export type AgendaItemDocument<Lang extends string = string> =
   >;
 
 /**
+ * Item in *Intro → Videos*
+ */
+export interface IntroDocumentDataVideosItem {
+  /**
+   * Video field in *Intro → Videos*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro.videos[].video
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  video: prismic.LinkToMediaField<prismic.FieldState, never>;
+}
+
+/**
+ * Item in *Intro → Mondjes*
+ */
+export interface IntroDocumentDataMondjesItem {
+  /**
+   * Image field in *Intro → Mondjes*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro.mondjes[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Content for Intro documents
+ */
+interface IntroDocumentData {
+  /**
+   * Videos field in *Intro*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro.videos[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  videos: prismic.GroupField<Simplify<IntroDocumentDataVideosItem>>;
+
+  /**
+   * Mondjes field in *Intro*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro.mondjes[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  mondjes: prismic.GroupField<Simplify<IntroDocumentDataMondjesItem>>;
+}
+
+/**
+ * Intro document from Prismic
+ *
+ * - **API ID**: `intro`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type IntroDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<IntroDocumentData>, "intro", Lang>;
+
+/**
  * Item in *Navigation → Footer*
  */
 export interface NavigationDocumentDataFooterItem {
@@ -485,6 +554,7 @@ export type ProjectDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | AgendaItemDocument
+  | IntroDocument
   | NavigationDocument
   | PageDocument
   | ProjectDocument;
@@ -952,6 +1022,10 @@ declare module "@prismicio/client" {
       AgendaItemDocument,
       AgendaItemDocumentData,
       AgendaItemDocumentDataSlicesSlice,
+      IntroDocument,
+      IntroDocumentData,
+      IntroDocumentDataVideosItem,
+      IntroDocumentDataMondjesItem,
       NavigationDocument,
       NavigationDocumentData,
       NavigationDocumentDataFooterItem,

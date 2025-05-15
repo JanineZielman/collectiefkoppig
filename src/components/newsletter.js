@@ -1,56 +1,49 @@
 import { useState } from 'react';
 
 const NewsletterSignup = () => {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState(null); // success | error | loading
+  const [status, setStatus] = useState("")
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('loading');
-
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const email = formData.get("EmailAddress")
+  
     try {
-      const response = await fetch(
-        'https://emailoctopus.com/api/1.6/lists/aeec21a4-2b45-11f0-bb95-6f11fbd0eac1/members',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            api_key: 'eo_fe72670eae0f6cbda06b4935d8e7f4d6c2ee65ec4e996bafdb2f600abd1e3c0a',
-            email_address: email,
-            tags: ['newsletter'],
-            status: 'SUBSCRIBED',
-          }),
-        }
-      );
-
-      const data = await response.json();
-
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
+  
       if (response.ok) {
-        setStatus('success');
-        setEmail('');
+        setStatus("success")
       } else {
-        console.error('Error:', data);
-        setStatus('error');
+        const error = await response.json()
+        console.error("Error:", error.error.detail)
+        if (error.error.detail == "List contact already exists.") {
+          setStatus("success")
+        } else {
+          setStatus("error")
+        }
       }
     } catch (error) {
-      console.error('Request failed:', error);
-      setStatus('error');
+      console.error("Network error:", error)
+      setStatus("error")
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="newsletter-form">
       <input
         type="email"
-        placeholder="Jouw e-mailadres"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        name="EmailAddress"
+        className={`required email`}
+        placeholder="Jouw emailadres"
         required
-        className="input"
       />
-      <button type="submit" className="button" disabled={status === 'loading'}>
+      <button type="submit" name="subscribe" className="button" disabled={status === 'loading'}>
         {status === 'loading' ? 'Aanmelden...' : 'Aanmelden'}
       </button>
 
