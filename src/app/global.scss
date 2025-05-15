@@ -218,10 +218,8 @@ body {
     width: fit-content;
     margin-bottom: 10px;
   }
-  .flex *{
-    font-size: 20px;
-    display: inline;
-  }
+    
+
   &.onderwijs{
     h3{
       background-color: var(--blue);
@@ -247,6 +245,24 @@ body {
     }
   }
 }
+
+.waar, .programma{
+    a{
+      padding-bottom: 0;
+      display: inline;
+    }
+  }
+  .waar p:before{
+    content: 'Waar ';
+    font-size: inherit;
+    font-weight: 500;
+  }
+
+  .programma p:before{
+    content: 'Programma ';
+    font-size: inherit;
+    font-weight: 500;
+  }
 
 .home{
   background-color: var(--pink2);

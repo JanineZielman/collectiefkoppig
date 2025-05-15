@@ -23,10 +23,10 @@ const Home = ({agenda}) => {
                   <p><b>Tijd</b> {item.data.tijd}</p>
                 }
                 {item.data.programma.length > 0 &&
-                  <div className="flex"><b>Programma&nbsp;</b> <PrismicRichText field={item.data.programma}/></div>
+                  <div className="programma"><PrismicRichText field={item.data.programma}/></div>
                 }
                 {item.data.waar.length > 0 &&
-                   <div className="flex"><b>Waar&nbsp;</b> <PrismicRichText field={item.data.waar}/></div>
+                  <div className="waar"><PrismicRichText field={item.data.waar}/></div>
                 }
               </Link>
             )
