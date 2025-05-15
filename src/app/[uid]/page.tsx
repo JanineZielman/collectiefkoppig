@@ -48,7 +48,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const projects = await client.getAllByType('project');
 
   return (
-    <div className={`page ${page.uid}`}>
+    <div className={`page ${page.uid} no-prefooter`}>
       <Layout navigation={navigation.results[0].data}>
         <h1 className="page-title">{prismic.asText(page.data.title)}</h1>
         <SliceZone slices={page.data.slices} components={components} />
