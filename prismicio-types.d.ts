@@ -31,24 +31,24 @@ interface AgendaItemDocumentData {
   /**
    * Date field in *Agenda Item*
    *
-   * - **Field Type**: Date
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: agenda_item.date
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#date
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  date: prismic.DateField;
+  date: prismic.KeyTextField;
 
   /**
-   * End date field in *Agenda Item*
+   * Date (for order) field in *Agenda Item*
    *
    * - **Field Type**: Date
    * - **Placeholder**: *None*
-   * - **API ID Path**: agenda_item.end_date
+   * - **API ID Path**: agenda_item.dateOrder
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#date
    */
-  end_date: prismic.DateField;
+  dateOrder: prismic.DateField;
 
   /**
    * Tijd field in *Agenda Item*

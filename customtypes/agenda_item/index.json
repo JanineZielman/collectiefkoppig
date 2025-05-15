@@ -20,16 +20,16 @@
         }
       },
       "date": {
-        "type": "Date",
+        "type": "Text",
         "config": {
           "label": "Date",
           "placeholder": ""
         }
       },
-      "end_date": {
+      "dateOrder": {
         "type": "Date",
         "config": {
-          "label": "End date",
+          "label": "Date (for order)",
           "placeholder": ""
         }
       },

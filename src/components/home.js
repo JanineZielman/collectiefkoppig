@@ -15,12 +15,7 @@ const Home = ({agenda}) => {
             return(
               <Link key={`agenda${i}`} href={`/agenda/${item.uid}`} className={`agenda-item ${(item.data.category)?.uid}`}>
                 <p className="date">
-                  {item.data.date
-                    ? new Date(item.data.date).toLocaleDateString("nl-NL", {
-                        day: "numeric",
-                        month: "long",
-                      })
-                    : "Geen datum beschikbaar"}
+                  {item.data.date}
                 </p>
 
                 <h3>{item.data.title}</h3>

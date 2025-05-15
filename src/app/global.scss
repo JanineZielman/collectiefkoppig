@@ -207,15 +207,24 @@ body {
     h3{
       background-color: var(--blue);
     }
+    p a{
+      color: var(--blue);
+    }
   }
   &.kunst{
     h3{
       background-color: var(--yellow);
     }
+    p a{
+      color: var(--oker);
+    }
   }
   &.samenleving{
     h3{
       background-color: var(--pink);
+    }
+    p a{
+      color: var(--purple);
     }
   }
 }
@@ -350,7 +359,7 @@ body {
       color: var(--purple);
     }
     p a{
-      color: var(--pink);
+      color: var(--purple);
     }
   }
   &.koppen{

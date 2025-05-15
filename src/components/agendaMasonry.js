@@ -24,12 +24,7 @@ const AgendaMasonry = ({agenda}) => {
           >
             <div className={`image`}><PrismicImage field={item.data.image}/></div>
             <p className="date">
-              {item.data.date
-                ? new Date(item.data.date).toLocaleDateString("nl-NL", {
-                    day: "numeric",
-                    month: "long",
-                  })
-                : "Geen datum beschikbaar"}
+              {item.data.date}
             </p>
             <h3>{item.data.title}</h3>
             {item.data.tijd &&  
