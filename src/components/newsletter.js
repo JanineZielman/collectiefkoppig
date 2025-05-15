@@ -1,41 +1,52 @@
 import { useState } from 'react';
 
 const NewsletterSignup = () => {
-  const [status, setStatus] = useState("")
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState(null); // success | error | loading
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
-    const email = formData.get("EmailAddress")
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+
     try {
-      const response = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      })
-  
+      const response = await fetch(
+        'https://emailoctopus.com/api/1.6/lists/aeec21a4-2b45-11f0-bb95-6f11fbd0eac1/members',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            api_key: 'eo_fe72670eae0f6cbda06b4935d8e7f4d6c2ee65ec4e996bafdb2f600abd1e3c0a',
+            email_address: email,
+            tags: ['newsletter'],
+            status: 'SUBSCRIBED',
+          }),
+        }
+      );
+
+      const data = await response.json();
+
       if (response.ok) {
-        setStatus("success")
+        setStatus('success');
+        setEmail('');
       } else {
-        const error = await response.json()
-        console.error("Error:", error)
-        setStatus("error")
+        console.error('Error:', data);
+        setStatus('error');
       }
     } catch (error) {
-      console.error("Network error:", error)
-      setStatus("error")
+      console.error('Request failed:', error);
+      setStatus('error');
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="newsletter-form">
       <input
         type="email"
-        name="EmailAddress"
         placeholder="Jouw e-mailadres"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         required
         className="input"
       />
