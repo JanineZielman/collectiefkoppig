@@ -367,6 +367,16 @@ img{
   height: auto;
 }
 
+.ondersteun-button{
+  position: absolute;
+  right: 3vw;
+  bottom: 20vh;
+  &:hover{
+    animation: shake 0.75s; 
+    animation-iteration-count: infinite; 
+  }
+}
+
 .share{
   margin-right: 0;
   margin-left: auto;
@@ -596,6 +606,11 @@ footer{
     transform: translate(0);
     top: 80px;
     bottom: auto;
+  }
+
+  .ondersteun-button{
+    bottom: 55vh;
+    width: 35vw;
   }
   .agenda{
     width: 95%;
