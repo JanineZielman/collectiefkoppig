@@ -43,7 +43,10 @@ const ImageSlider = ({ slice }: ImageSliderProps): JSX.Element => {
     >
       <Slider {...settings}>
         {slice.primary.images.map((item, i) => (
-          <PrismicNextImage field={item.image} key={`image${i}`}/>
+          <div>
+            <PrismicNextImage field={item.image} key={`image${i}`}/>
+            {item.image.alt &&<p>{item.image.alt}</p>}
+          </div>
         ))}
       </Slider>
     </section>

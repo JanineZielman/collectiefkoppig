@@ -334,14 +334,23 @@ body {
     .project h2:hover{
       color: var(--oker);
     }
+    p a{
+      color: var(--oker);
+    }
   }
   &.onderwijs{
     background-color: var(--blue2);
+    p a{
+      color: var(--blue);
+    }
   }
   &.samenleving{
     background-color: var(--pink2);
     .project h2:hover{
       color: var(--purple);
+    }
+    p a{
+      color: var(--pink);
     }
   }
   &.koppen{
@@ -578,15 +587,18 @@ footer{
 
 .slick-slider{
   div{
-    height: 60vh;
     width: auto;
   }
   img{
-    height: 100%;
+    height: 60vh;
     width: auto;
     max-width: 50vw;
     object-fit: contain;
     padding: 0 24px;
+  }
+  p{
+    padding: 0 24px;
+    font-size: 18px;
   }
 }
 
