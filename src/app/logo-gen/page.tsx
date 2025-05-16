@@ -159,7 +159,7 @@ export default function DrawingCanvas() {
           onClick={copyImageAndMail}
           className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
         >
-          Share
+          Delen
         </div>
       </div>
     </div>
