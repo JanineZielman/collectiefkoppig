@@ -808,6 +808,8 @@ footer{
   height: 100vh;
   canvas{
     border: 1px solid black;
+    max-width: 95%;
+    aspect-ratio: 1/1;
   }
   .downloadButton{
     margin-top: 24px;

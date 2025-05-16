@@ -1,50 +1,83 @@
-'use client'
+'use client';
 import { useRef, useState, useEffect } from 'react';
 
 export default function DrawingCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [history, setHistory] = useState<string[]>([]); // for undo
+  const [history, setHistory] = useState<string[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 8;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#000';
 
-    const startDrawing = (e: MouseEvent) => {
-      saveHistory(); // Save before drawing
+    const getOffset = (e: TouchEvent | MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      if (e instanceof TouchEvent) {
+        const touch = e.touches[0] || e.changedTouches[0];
+        return {
+          x: touch.clientX - rect.left,
+          y: touch.clientY - rect.top,
+        };
+      } else {
+        return {
+          x: e.offsetX,
+          y: e.offsetY,
+        };
+      }
+    };
+
+    const startDrawing = (e: MouseEvent | TouchEvent) => {
+      e.preventDefault();
+      saveHistory();
+      const { x, y } = getOffset(e);
       ctx.beginPath();
-      ctx.moveTo(e.offsetX, e.offsetY);
+      ctx.moveTo(x, y);
       setIsDrawing(true);
     };
 
-    const draw = (e: MouseEvent) => {
+    const draw = (e: MouseEvent | TouchEvent) => {
       if (!isDrawing) return;
-      ctx.lineTo(e.offsetX, e.offsetY);
+      e.preventDefault();
+      const { x, y } = getOffset(e);
+      ctx.lineTo(x, y);
       ctx.stroke();
     };
 
-    const stopDrawing = () => {
+    const stopDrawing = (e?: Event) => {
+      if (!isDrawing) return;
+      e?.preventDefault();
       setIsDrawing(false);
       ctx.closePath();
     };
 
+    // Mouse events
     canvas.addEventListener('mousedown', startDrawing);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stopDrawing);
     canvas.addEventListener('mouseout', stopDrawing);
+
+    // Touch events
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stopDrawing);
+    canvas.addEventListener('touchcancel', stopDrawing);
 
     return () => {
       canvas.removeEventListener('mousedown', startDrawing);
       canvas.removeEventListener('mousemove', draw);
       canvas.removeEventListener('mouseup', stopDrawing);
       canvas.removeEventListener('mouseout', stopDrawing);
+
+      canvas.removeEventListener('touchstart', startDrawing);
+      canvas.removeEventListener('touchmove', draw);
+      canvas.removeEventListener('touchend', stopDrawing);
+      canvas.removeEventListener('touchcancel', stopDrawing);
     };
   }, [isDrawing]);
 
@@ -52,7 +85,7 @@ export default function DrawingCanvas() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const data = canvas.toDataURL();
-    setHistory((prev) => [...prev.slice(-19), data]); // Keep last 20
+    setHistory((prev) => [...prev.slice(-19), data]);
   };
 
   const handleUndo = () => {
@@ -75,7 +108,6 @@ export default function DrawingCanvas() {
   const downloadImage = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const link = document.createElement('a');
     link.download = 'drawing.png';
     link.href = canvas.toDataURL('image/png');
@@ -84,13 +116,13 @@ export default function DrawingCanvas() {
 
   return (
     <div className="drawing space-y-4">
-      <canvas
-        ref={canvasRef}
-        width={600}
-        height={600}
-        className="border border-gray-400 rounded"
-      />
-      <div className="flex">
+        <canvas
+          ref={canvasRef}
+          width="400"
+          height="400"
+          className="border border-gray-400 rounded w-full h-auto touch-none"
+        />
+      <div className="flex gap-4 justify-center">
         <div onClick={handleUndo} className="px-4 py-2 bg-yellow-500 text-white rounded">
           Undo
         </div>
