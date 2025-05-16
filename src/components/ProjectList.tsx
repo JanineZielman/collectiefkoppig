@@ -16,7 +16,7 @@ export default function ProjectList({ projects }: { projects: any[] }) {
     : projects;
 
   return (
-    <div>
+    <div className="archief-wrapper">
       <div className="filter-buttons">
         <div onClick={() => setSelectedCategory(null)} className={selectedCategory === null ? "active" : ""}>Alles</div>
         {categories.map((cat) => (

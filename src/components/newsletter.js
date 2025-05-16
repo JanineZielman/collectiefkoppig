@@ -43,8 +43,8 @@ const NewsletterSignup = () => {
         placeholder="Jouw emailadres"
         required
       />
-      <button type="submit" name="subscribe" className="button" disabled={status === 'loading'}>
-        {status === 'loading' ? 'Aanmelden...' : 'Aanmelden'}
+      <button type="submit" name="subscribe" className="submit" disabled={status === 'loading'}>
+        
       </button>
 
       {status === 'success' && <p className="success">Je bent aangemeld!</p>}

@@ -56,13 +56,10 @@ export default function DrawingCanvas() {
       ctx.closePath();
     };
 
-    // Mouse events
     canvas.addEventListener('mousedown', startDrawing);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stopDrawing);
     canvas.addEventListener('mouseout', stopDrawing);
-
-    // Touch events
     canvas.addEventListener('touchstart', startDrawing);
     canvas.addEventListener('touchmove', draw);
     canvas.addEventListener('touchend', stopDrawing);
@@ -73,7 +70,6 @@ export default function DrawingCanvas() {
       canvas.removeEventListener('mousemove', draw);
       canvas.removeEventListener('mouseup', stopDrawing);
       canvas.removeEventListener('mouseout', stopDrawing);
-
       canvas.removeEventListener('touchstart', startDrawing);
       canvas.removeEventListener('touchmove', draw);
       canvas.removeEventListener('touchend', stopDrawing);
@@ -114,20 +110,56 @@ export default function DrawingCanvas() {
     link.click();
   };
 
+  const copyImageAndMail = async () => {
+    const canvas = canvasRef.current;
+    if (!canvas || !navigator.clipboard?.write) {
+      alert('Clipboard image copy not supported in this browser.');
+      return;
+    }
+  
+    try {
+      // Convert canvas to blob
+      const blob = await new Promise<Blob>((resolve) =>
+        canvas.toBlob((b) => b && resolve(b), 'image/png')
+      );
+  
+      if (!blob) throw new Error('Could not create image blob');
+  
+      // Copy to clipboard as image
+      const item = new ClipboardItem({ 'image/png': blob });
+      await navigator.clipboard.write([item]);
+  
+      // Open mail client
+      const subject = encodeURIComponent('Logo');
+      const body = encodeURIComponent('Hoihoi!\n\nIk heb iets moois getekend 😄\n\n Plak het hieronder (Ctrl+V of Cmd+V) om het te zien:\n\n');
+      window.location.href = `mailto:info@collectiefkoppig.nl?subject=${subject}&body=${body}`;
+    } catch (err) {
+      console.error(err);
+      alert('Failed to copy image. Make sure you’re using a supported browser.');
+    }
+  };
+  
+
   return (
     <div className="drawing space-y-4">
-        <canvas
-          ref={canvasRef}
-          width="400"
-          height="400"
-          className="border border-gray-400 rounded w-full h-auto touch-none"
-        />
-      <div className="flex gap-4 justify-center">
-        <div onClick={handleUndo} className="px-4 py-2 bg-yellow-500 text-white rounded">
+      <canvas
+        ref={canvasRef}
+        width="400"
+        height="400"
+        className="border border-gray-400 rounded w-full h-auto touch-none"
+      />
+      <div className="flex gap-4 justify-center flex-wrap">
+        <div onClick={handleUndo} className="px-4 py-2 bg-yellow-500 text-white rounded cursor-pointer">
           Undo
         </div>
-        <div onClick={downloadImage} className="px-4 py-2 bg-green-500 text-white rounded">
+        <div onClick={downloadImage} className="px-4 py-2 bg-green-500 text-white rounded cursor-pointer">
           Download
+        </div>
+        <div
+          onClick={copyImageAndMail}
+          className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+        >
+          Share
         </div>
       </div>
     </div>
