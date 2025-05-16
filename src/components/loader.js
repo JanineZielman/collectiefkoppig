@@ -1,105 +1,127 @@
-'use client'
+'use client';
 import { useState, useEffect, useRef } from 'react';
 import styles from './Loader.module.scss';
-import Home from '@/components/home'
+import Home from '@/components/home';
 
-const Loader = ({agenda}) => {
+const shuffleArray = (arr) => [...arr].sort(() => Math.random() - 0.5);
+
+const Loader = ({ agenda, intro }) => {
   const [isFirstLoad, setIsFirstLoad] = useState(false);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
   const [shuffledImages, setShuffledImages] = useState([]);
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const videoRef = useRef(null);
 
-  const images = [
-    '/mondjes/SVG/mond1.svg',
-    '/mondjes/SVG/mond2.svg',
-    '/mondjes/SVG/mond3.svg',
-    '/mondjes/SVG/mond4.svg',
-    '/mondjes/SVG/mond5.svg',
-    '/mondjes/SVG/mond6.svg',
-    '/mondjes/SVG/mond7.svg',
-    '/mondjes/SVG/mond8.svg'
-  ];
-
   useEffect(() => {
-    const hasLoaded = sessionStorage.getItem("hasLoaded");
+    const hasLoaded = sessionStorage.getItem('hasLoaded');
     if (!hasLoaded) {
       setIsFirstLoad(true);
-      sessionStorage.setItem("hasLoaded", "true");
+      sessionStorage.setItem('hasLoaded', 'true');
     }
   }, []);
 
   useEffect(() => {
-    const preloadImages = async () => {
-      const imagePromises = images.map(src => 
+    const preloadAssets = async () => {
+      const mondjes = intro?.data?.mondjes || [];
+      const videos = intro?.data?.videos || [];
+
+      const preload = mondjes.map((item) =>
         new Promise((resolve) => {
           const img = new Image();
-          img.src = src;
-          img.onload = resolve;
+          img.src = item.image.url;
+          img.onload = () => resolve(item);
         })
       );
 
-      await Promise.all(imagePromises);
-      setShuffledImages(shuffleArray(images));
+      await Promise.all(preload);
+      setShuffledImages(shuffleArray(mondjes));
+
+      // Select a random video
+      if (videos.length > 0) {
+        const randomIndex = Math.floor(Math.random() * videos.length);
+        setSelectedVideo(videos[randomIndex]);
+      }
+
       setAssetsLoaded(true);
     };
 
-    preloadImages();
-  }, []);
+    preloadAssets();
+  }, [intro]);
 
   useEffect(() => {
-    if (!assetsLoaded) return;
+    if (!assetsLoaded || !isVisible || !videoRef.current) return;
 
-    const hideTimeout = setTimeout(() => {
+    const video = videoRef.current;
+
+    const handleCanPlay = () => {
+      video.play().catch(() => {
+        // AutoPlay blocked: still proceed visually
+      });
+    };
+
+    const handleEnded = () => {
       setIsVisible(false);
-      if (videoRef.current) {
-        videoRef.current.pause();
-      }
-    }, 5400);
+    };
 
-    return () => clearTimeout(hideTimeout);
-  }, [assetsLoaded]);
+    video.addEventListener('canplaythrough', handleCanPlay);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('canplaythrough', handleCanPlay);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, [assetsLoaded, isVisible]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!assetsLoaded || !isVisible) return;
 
     const interval = setInterval(() => {
-      setIndex((prevIndex) => {
-        if (prevIndex + 1 >= shuffledImages.length) {
-          setShuffledImages(shuffleArray(images));
+      setIndex((prev) => {
+        const next = prev + 1;
+        if (next >= shuffledImages.length) {
+          setShuffledImages(shuffleArray(shuffledImages));
           return 0;
         }
-        return prevIndex + 1;
+        return next;
       });
     }, 400);
 
     return () => clearInterval(interval);
-  }, [shuffledImages, isVisible]);
-
-  const shuffleArray = (arr) => [...arr].sort(() => Math.random() - 0.5);
+  }, [assetsLoaded, isVisible, shuffledImages]);
 
   return (
     <>
       {isFirstLoad && assetsLoaded && (
         <div className={`${styles.loader} ${!isVisible ? styles.hidden : ''}`}>
-          <video 
-            ref={videoRef} 
-            autoPlay 
-            playsInline 
-            muted 
-            loop 
-            onCanPlayThrough={() => setAssetsLoaded(true)}
-          >
-            <source src="/koppig2.mp4" type="video/mp4" />
-          </video>
-          <div className={styles.mondjes} style={{ maskImage: `url(${shuffledImages[index]})` }} />
+          {selectedVideo && (
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              loop={false}
+              preload="auto"
+              className={styles.video}
+            >
+              <source src={selectedVideo.video.url} type="video/mp4" />
+            </video>
+          )}
+
+          <div className={styles.mondjesWrapper}>
+            {shuffledImages.map((item, i) => (
+              <img
+                key={i}
+                src={item.image.url}
+                className={`${styles.mondjes} ${i === index ? styles.visible : ''}`}
+                alt=""
+              />
+            ))}
+          </div>
         </div>
-      )
-    }
-    {(!isFirstLoad || !isVisible) && (
-      <Home agenda={agenda}/>
-    )}
+      )}
+      {(!isFirstLoad || !isVisible) && <Home agenda={agenda} />}
     </>
   );
 };

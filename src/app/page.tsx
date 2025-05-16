@@ -34,11 +34,12 @@ export default async function Index() {
       ]
     }
   );
+  const intro = await client.getByType('intro');
 
   return (
     <div className="home">
       <Layout navigation={navigation.results[0].data}>
-        <Loader agenda={agenda}/>
+        <Loader agenda={agenda} intro={intro.results[0]}/>
       </Layout>
       <div className="miertje"><img src="/Gif-Mier-1.gif"/></div>
       <div className="miertje-2"><img src="/Gif-Mier-1.gif"/></div>
