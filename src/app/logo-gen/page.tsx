@@ -132,7 +132,7 @@ export default function DrawingCanvas() {
       // Open mail client
       const subject = encodeURIComponent('Logo');
       const body = encodeURIComponent('Hoihoi!\n\nIk heb iets moois getekend 😄\n\n Plak het hieronder (Ctrl+V of Cmd+V) om het te zien:\n\n');
-      window.location.href = `mailto:info@collectiefkoppig.nl?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:cms@collectiefkoppig.nl?subject=${subject}&body=${body}`;
     } catch (err) {
       console.error(err);
       alert('Failed to copy image. Make sure you’re using a supported browser.');
