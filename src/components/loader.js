@@ -14,6 +14,7 @@ const Loader = ({ agenda, intro }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const videoRef = useRef(null);
 
+  // Detect first load (session only)
   useEffect(() => {
     const hasLoaded = sessionStorage.getItem('hasLoaded');
     if (!hasLoaded) {
@@ -22,23 +23,24 @@ const Loader = ({ agenda, intro }) => {
     }
   }, []);
 
+  // Preload images + pick random video
   useEffect(() => {
     const preloadAssets = async () => {
       const mondjes = intro?.data?.mondjes || [];
       const videos = intro?.data?.videos || [];
 
-      const preload = mondjes.map((item) =>
-        new Promise((resolve) => {
-          const img = new Image();
-          img.src = item.image.url;
-          img.onload = () => resolve(item);
-        })
+      const preload = mondjes.map(
+        (item) =>
+          new Promise((resolve) => {
+            const img = new Image();
+            img.src = item.image.url;
+            img.onload = () => resolve(item);
+          })
       );
 
       await Promise.all(preload);
       setShuffledImages(shuffleArray(mondjes));
 
-      // Select a random video
       if (videos.length > 0) {
         const randomIndex = Math.floor(Math.random() * videos.length);
         setSelectedVideo(videos[randomIndex]);
@@ -50,6 +52,7 @@ const Loader = ({ agenda, intro }) => {
     preloadAssets();
   }, [intro]);
 
+  // Video autoplay + end handling
   useEffect(() => {
     if (!assetsLoaded || !isVisible || !videoRef.current) return;
 
@@ -57,7 +60,7 @@ const Loader = ({ agenda, intro }) => {
 
     const handleCanPlay = () => {
       video.play().catch(() => {
-        // AutoPlay blocked: still proceed visually
+        // Autoplay might be blocked — ignore
       });
     };
 
@@ -74,6 +77,7 @@ const Loader = ({ agenda, intro }) => {
     };
   }, [assetsLoaded, isVisible]);
 
+  // Mondjes animation loop
   useEffect(() => {
     if (!assetsLoaded || !isVisible) return;
 
@@ -91,10 +95,29 @@ const Loader = ({ agenda, intro }) => {
     return () => clearInterval(interval);
   }, [assetsLoaded, isVisible, shuffledImages]);
 
+  // Skip handler
+  const handleSkip = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+    setIsVisible(false);
+  };
+
   return (
     <>
       {isFirstLoad && assetsLoaded && (
         <div className={`${styles.loader} ${!isVisible ? styles.hidden : ''}`}>
+
+          {/* Skip button */}
+          <div
+            className={styles.skipButton}
+            onClick={handleSkip}
+            aria-label="Skip intro"
+          >
+            Skip
+          </div>
+
           {selectedVideo && (
             <video
               ref={videoRef}
@@ -114,13 +137,15 @@ const Loader = ({ agenda, intro }) => {
               <img
                 key={i}
                 src={item.image.url}
-                className={`${styles.mondjes} ${i === index ? styles.visible : ''}`}
+                className={`${styles.mondjes} ${i === index ? styles.visible : ''
+                  }`}
                 alt=""
               />
             ))}
           </div>
         </div>
       )}
+
       {(!isFirstLoad || !isVisible) && <Home agenda={agenda} />}
     </>
   );
