@@ -1,6 +1,6 @@
 'use client'
 import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import dynamic from "next/dynamic";
 import { PrismicNextImage } from "@prismicio/next";
 import styles from "./Slider.module.scss"
@@ -44,8 +44,9 @@ const ImageSlider = ({ slice }: ImageSliderProps): JSX.Element => {
       <Slider {...settings}>
         {slice.primary.images.map((item, i) => (
           <div key={`image${i}`}>
-            <PrismicNextImage field={item.image}/>
-            {item.image.alt &&<p>{item.image.alt}</p>}
+            <PrismicNextImage field={item.image} />
+            {item.image.alt && <p>{item.image.alt}</p>}
+            <PrismicRichText field={item.caption} />
           </div>
         ))}
       </Slider>

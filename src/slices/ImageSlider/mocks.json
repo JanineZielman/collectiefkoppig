@@ -34,6 +34,20 @@
 									"__TYPE__": "ImageContent",
 									"thumbnails": {}
 								}
+							],
+							[
+								"caption",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Nisi proident ut consequat velit quis veniam anim magna nostrud labore minim Lorem minim. Velit et exercitation mollit culpa veniam ipsum et sit veniam veniam est cupidatat ex aliquip anim. Veniam ullamco esse exercitation."
+											}
+										}
+									]
+								}
 							]
 						]
 					}
