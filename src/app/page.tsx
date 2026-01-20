@@ -24,12 +24,12 @@ export default async function Index() {
   const client = createClient();
   const home = await client.getByUID("page", "home");
   const navigation = await client.getByType("navigation");
-  const agenda = await client.getAllByType("agenda_item", 
+  const agenda = await client.getAllByType("agenda_item",
     {
       orderings: [
         {
-          field: 'my.agenda_item.date',
-          direction: 'asc',
+          field: 'my.agenda_item.dateOrder',
+          direction: 'desc',
         },
       ]
     }
@@ -39,11 +39,11 @@ export default async function Index() {
   return (
     <div className="home">
       <Layout navigation={navigation.results[0].data}>
-        <Loader agenda={agenda} intro={intro.results[0]}/>
+        <Loader agenda={agenda} intro={intro.results[0]} />
       </Layout>
-      <div className="miertje"><img src="/Gif-Mier-1.gif"/></div>
-      <div className="miertje-2"><img src="/Gif-Mier-1.gif"/></div>
-      <div className="miertje-3"><img src="/Gif-Mier-1.gif"/></div>
+      <div className="miertje"><img src="/Gif-Mier-1.gif" /></div>
+      <div className="miertje-2"><img src="/Gif-Mier-1.gif" /></div>
+      <div className="miertje-3"><img src="/Gif-Mier-1.gif" /></div>
     </div>
   )
 }

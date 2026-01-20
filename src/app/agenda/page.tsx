@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import * as prismic from "@prismicio/client";
 import { createClient } from "@/prismicio";
-import Layout from "@/components/layout"
-import AgendaMasonry from "@/components/agendaMasonry"
+import Layout from "@/components/layout";
+import AgendaMasonry from "@/components/agendaMasonry";
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
@@ -19,24 +19,32 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Index() {
-  // The client queries content from the Prismic API
   const client = createClient();
   const navigation = await client.getByType("navigation");
-  const agenda = await client.getAllByType('agenda_item', {
+
+  // const todayFormatted = new Date().toISOString().split("T")[0];
+
+  const agenda = await client.getAllByType("agenda_item", {
+    // filters: [
+    //   prismic.filter.dateAfter(
+    //     "my.agenda_item.dateOrder",
+    //     todayFormatted
+    //   ),
+    // ],
     orderings: [
       {
-        field: 'my.agenda_item.date',
-        direction: 'asc',
+        field: "my.agenda_item.dateOrder",
+        direction: "desc",
       },
-    ]
+    ],
   });
 
   return (
     <div className="agenda-page">
       <Layout navigation={navigation.results[0].data}>
         <h1 className="page-title">Agenda</h1>
-        <AgendaMasonry agenda={agenda}/>
+        <AgendaMasonry agenda={agenda} />
       </Layout>
     </div>
-  )
+  );
 }
